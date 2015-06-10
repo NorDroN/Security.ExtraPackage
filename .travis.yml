@@ -1,4 +1,6 @@
 language: csharp
-sudo: required
+sudo: false
+before_script:
+  - chmod +x build
 script:
-  - ./build.sh verify
+  - ./build.sh --quiet verify
