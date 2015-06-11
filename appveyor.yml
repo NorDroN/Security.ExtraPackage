@@ -2,12 +2,12 @@ init:
   - git config --global core.autocrlf true
 
 build_script:
-  - set K_BUILD_VERSION=%APPVEYOR_BUILD_NUMBER% #temp
-  - set K_BUILD_VERSION=%K_BUILD_VERSION:~-4%
+  - set DNX_BUILD_VERSION=%APPVEYOR_BUILD_NUMBER% #temp
+  - set DNX_BUILD_VERSION=%DNX_BUILD_VERSION:~-4%
   - echo %APPVEYOR%
   - echo %APPVEYOR_REPO_TAG%
   - echo %APPVEYOR_REPO_BRANCH%
-  - echo %K_BUILD_VERSION%
+  - echo %DNX_BUILD_VERSION%
   - build.cmd
 
 test: off
