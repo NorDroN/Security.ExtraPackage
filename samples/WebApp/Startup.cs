@@ -61,6 +61,12 @@ namespace WebApp
                 options.ClientSecret = "068CQsV4iubzwpQ2";
             });
 
+            app.UseInstagramAuthentication(options =>
+            {
+                options.ClientId = "aeb810cc6b8d41a98a6ffb5c5d533782";
+                options.ClientSecret = "b760abd2ce3844d4b93bb5dcf9dc5f66";
+            });
+
             // Choose an authentication type
             app.Map("/login", signoutApp =>
             {
