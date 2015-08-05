@@ -9,7 +9,7 @@ namespace Microsoft.AspNet.Authentication.LinkedIn
     /// <summary>
     /// Configuration options for <see cref="LinkedInAuthenticationMiddleware"/>.
     /// </summary>
-    public class LinkedInAuthenticationOptions : OAuthAuthenticationOptions<ILinkedInAuthenticationNotifications>
+    public class LinkedInAuthenticationOptions : OAuthAuthenticationOptions
     {
         /// <summary>
         /// Initializes a new <see cref="LinkedInAuthenticationOptions"/>.
@@ -22,6 +22,7 @@ namespace Microsoft.AspNet.Authentication.LinkedIn
             AuthorizationEndpoint = LinkedInAuthenticationDefaults.AuthorizationEndpoint;
             TokenEndpoint = LinkedInAuthenticationDefaults.TokenEndpoint;
             UserInformationEndpoint = LinkedInAuthenticationDefaults.UserInformationEndpoint;
+            SaveTokensAsClaims = false;
         }
     }
 }

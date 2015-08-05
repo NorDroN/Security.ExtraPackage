@@ -12,17 +12,18 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System;
+using Microsoft.AspNet.WebUtilities;
 
 namespace Microsoft.AspNet.Authentication.Odnoklassniki
 {
-    internal class OdnoklassnikiAuthenticationHandler : OAuthAuthenticationHandler<OdnoklassnikiAuthenticationOptions, IOdnoklassnikiAuthenticationNotifications>
+    internal class OdnoklassnikiAuthenticationHandler : OAuthAuthenticationHandler<OdnoklassnikiAuthenticationOptions>
     {
         public OdnoklassnikiAuthenticationHandler(HttpClient httpClient)
             : base(httpClient)
         {
         }
 
-        protected override async Task<AuthenticationTicket> GetUserInformationAsync(AuthenticationProperties properties, TokenResponse tokens)
+        protected override async Task<AuthenticationTicket> CreateTicketAsync(ClaimsIdentity identity, AuthenticationProperties properties, OAuthTokenResponse tokens)
         {
             // Signing.
             // Call API methods using access_token instead of session_key parameter
@@ -39,44 +40,52 @@ namespace Microsoft.AspNet.Authentication.Odnoklassniki
             args.Add("access_token", tokens.AccessToken);
             args.Add("sig", signature);
 
-            var graphAddress = Options.UserInformationEndpoint + "?" + string.Join("&", args.Select(x => string.Format("{0}={1}", x.Key, x.Value)));
+            var endpoint = QueryHelpers.AddQueryString(Options.UserInformationEndpoint, args);
 
-            var graphResponse = await Backchannel.GetAsync(graphAddress, Context.RequestAborted);
-            graphResponse.EnsureSuccessStatusCode();
-            var text = await graphResponse.Content.ReadAsStringAsync();
-            var user = JObject.Parse(text);
+            var response = await Backchannel.GetAsync(endpoint, Context.RequestAborted);
+            response.EnsureSuccessStatusCode();
 
-            var context = new OdnoklassnikiAuthenticatedContext(Context, Options, user, tokens);
-            var identity = new ClaimsIdentity(
-                Options.ClaimsIssuer,
-                ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
-            if (!string.IsNullOrEmpty(context.Id))
-            {
-                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.Id, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            if (!string.IsNullOrEmpty(context.Name))
-            {
-                identity.AddClaim(new Claim(ClaimTypes.Name, context.Name, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            if (!string.IsNullOrEmpty(context.Email))
-            {
-                identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            if (!string.IsNullOrEmpty(context.FirstName))
-            {
-                identity.AddClaim(new Claim(ClaimTypes.GivenName, context.FirstName, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            if (!string.IsNullOrEmpty(context.LastName))
-            {
-                identity.AddClaim(new Claim(ClaimTypes.Surname, context.LastName, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            context.Properties = properties;
-            context.Principal = new ClaimsPrincipal(identity);
+            var payload = JObject.Parse(await response.Content.ReadAsStringAsync());
 
-            await Options.Notifications.Authenticated(context);
+            var notification = new OAuthAuthenticatedContext(Context, Options, Backchannel, tokens, payload)
+            {
+                Properties = properties,
+                Principal = new ClaimsPrincipal(identity)
+            };
 
-            return new AuthenticationTicket(context.Principal, context.Properties, context.Options.AuthenticationScheme);
+            var identifier = OdnoklassnikiAuthenticationHelper.GetId(payload);
+            if (!string.IsNullOrEmpty(identifier))
+            {
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, identifier, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            var userName = OdnoklassnikiAuthenticationHelper.GetUserName(payload);
+            if (!string.IsNullOrEmpty(userName))
+            {
+                identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, userName, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            var email = OdnoklassnikiAuthenticationHelper.GetEmail(payload);
+            if (!string.IsNullOrEmpty(email))
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Email, email, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            var firstName = OdnoklassnikiAuthenticationHelper.GetFirstName(payload);
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                identity.AddClaim(new Claim(ClaimTypes.GivenName, firstName, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            var lastName = OdnoklassnikiAuthenticationHelper.GetLastName(payload);
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Surname, lastName, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            await Options.Notifications.Authenticated(notification);
+
+            return new AuthenticationTicket(notification.Principal, notification.Properties, notification.Options.AuthenticationScheme);
         }
 
         private static string GetMd5Hash(string input)

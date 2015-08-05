@@ -9,7 +9,7 @@ namespace Microsoft.AspNet.Authentication.VK
     /// <summary>
     /// Configuration options for <see cref="VKAuthenticationMiddleware"/>.
     /// </summary>
-    public class VKAuthenticationOptions : OAuthAuthenticationOptions<IVKAuthenticationNotifications>
+    public class VKAuthenticationOptions : OAuthAuthenticationOptions
     {
         /// <summary>
         /// Initializes a new <see cref="VKAuthenticationOptions"/>.
@@ -22,6 +22,7 @@ namespace Microsoft.AspNet.Authentication.VK
             AuthorizationEndpoint = VKAuthenticationDefaults.AuthorizationEndpoint;
             TokenEndpoint = VKAuthenticationDefaults.TokenEndpoint;
             UserInformationEndpoint = VKAuthenticationDefaults.UserInformationEndpoint;
+            SaveTokensAsClaims = false;
         }
     }
 }

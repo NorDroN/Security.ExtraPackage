@@ -16,29 +16,29 @@ namespace Microsoft.AspNet.Authentication.LinkedIn
     /// <summary>
     /// An ASP.NET middleware for authenticating users using LinkedIn.
     /// </summary>
-    public class LinkedInAuthenticationMiddleware : OAuthAuthenticationMiddleware<LinkedInAuthenticationOptions, ILinkedInAuthenticationNotifications>
+    public class LinkedInAuthenticationMiddleware : OAuthAuthenticationMiddleware<LinkedInAuthenticationOptions>
     {
         /// <summary>
         /// Initializes a new <see cref="LinkedInAuthenticationMiddleware"/>.
         /// </summary>
-        /// <param name="next">The next middleware in the application pipeline to invoke.</param>
+        /// <param name="next">The next middleware in the HTTP pipeline to invoke.</param>
         /// <param name="dataProtectionProvider"></param>
         /// <param name="loggerFactory"></param>
+        /// <param name="encoder"></param>
+        /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
+        /// <param name="configureOptions"></param>
         public LinkedInAuthenticationMiddleware(
             [NotNull] RequestDelegate next,
             [NotNull] IDataProtectionProvider dataProtectionProvider,
             [NotNull] ILoggerFactory loggerFactory,
             [NotNull] IUrlEncoder encoder,
-            [NotNull] IOptions<ExternalAuthenticationOptions> externalOptions,
+            [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
             [NotNull] IOptions<LinkedInAuthenticationOptions> options,
             ConfigureOptions<LinkedInAuthenticationOptions> configureOptions = null)
-            : base(next, dataProtectionProvider, loggerFactory, encoder, externalOptions, options, configureOptions)
+            : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options, configureOptions)
         {
-            if (Options.Notifications == null)
-            {
-                Options.Notifications = new LinkedInAuthenticationNotifications();
-            }
+
         }
 
         /// <summary>

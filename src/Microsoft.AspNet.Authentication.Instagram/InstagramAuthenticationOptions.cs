@@ -9,7 +9,7 @@ namespace Microsoft.AspNet.Authentication.Instagram
     /// <summary>
     /// Configuration options for <see cref="InstagramAuthenticationMiddleware"/>.
     /// </summary>
-    public class InstagramAuthenticationOptions : OAuthAuthenticationOptions<IInstagramAuthenticationNotifications>
+    public class InstagramAuthenticationOptions : OAuthAuthenticationOptions
     {
         /// <summary>
         /// Initializes a new <see cref="InstagramAuthenticationOptions"/>.
@@ -22,6 +22,7 @@ namespace Microsoft.AspNet.Authentication.Instagram
             AuthorizationEndpoint = InstagramAuthenticationDefaults.AuthorizationEndpoint;
             TokenEndpoint = InstagramAuthenticationDefaults.TokenEndpoint;
             UserInformationEndpoint = InstagramAuthenticationDefaults.UserInformationEndpoint;
+            SaveTokensAsClaims = false;
         }
     }
 }

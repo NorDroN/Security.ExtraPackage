@@ -16,33 +16,31 @@ namespace Microsoft.AspNet.Authentication.Odnoklassniki
     /// <summary>
     /// An ASP.NET middleware for authenticating users using Odnoklassniki.
     /// </summary>
-    public class OdnoklassnikiAuthenticationMiddleware : OAuthAuthenticationMiddleware<OdnoklassnikiAuthenticationOptions, IOdnoklassnikiAuthenticationNotifications>
+    public class OdnoklassnikiAuthenticationMiddleware : OAuthAuthenticationMiddleware<OdnoklassnikiAuthenticationOptions>
     {
         /// <summary>
         /// Initializes a new <see cref="OdnoklassnikiAuthenticationMiddleware"/>.
         /// </summary>
-        /// <param name="next">The next middleware in the application pipeline to invoke.</param>
+        /// <param name="next">The next middleware in the HTTP pipeline to invoke.</param>
         /// <param name="dataProtectionProvider"></param>
         /// <param name="loggerFactory"></param>
+        /// <param name="encoder"></param>
+        /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
+        /// <param name="configureOptions"></param>
         public OdnoklassnikiAuthenticationMiddleware(
             [NotNull] RequestDelegate next,
             [NotNull] IDataProtectionProvider dataProtectionProvider,
             [NotNull] ILoggerFactory loggerFactory,
             [NotNull] IUrlEncoder encoder,
-            [NotNull] IOptions<ExternalAuthenticationOptions> externalOptions,
+            [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
             [NotNull] IOptions<OdnoklassnikiAuthenticationOptions> options,
             ConfigureOptions<OdnoklassnikiAuthenticationOptions> configureOptions = null)
-            : base(next, dataProtectionProvider, loggerFactory, encoder, externalOptions, options, configureOptions)
+            : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options, configureOptions)
         {
             if (string.IsNullOrWhiteSpace(Options.ClientPublicKey))
             {
                 throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exception_OptionMustBeProvided, nameof(Options.ClientPublicKey)));
-            }
-
-            if (Options.Notifications == null)
-            {
-                Options.Notifications = new OdnoklassnikiAuthenticationNotifications();
             }
         }
 

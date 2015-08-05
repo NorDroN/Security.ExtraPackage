@@ -8,60 +8,76 @@ using Microsoft.AspNet.Authentication.OAuth;
 using Microsoft.AspNet.Http.Authentication;
 using Newtonsoft.Json.Linq;
 using System;
+using Microsoft.AspNet.WebUtilities;
+using System.Collections.Generic;
 
 namespace Microsoft.AspNet.Authentication.LinkedIn
 {
-    internal class LinkedInAuthenticationHandler : OAuthAuthenticationHandler<LinkedInAuthenticationOptions, ILinkedInAuthenticationNotifications>
+    internal class LinkedInAuthenticationHandler : OAuthAuthenticationHandler<LinkedInAuthenticationOptions>
     {
         public LinkedInAuthenticationHandler(HttpClient httpClient)
             : base(httpClient)
         {
         }
 
-        protected override async Task<AuthenticationTicket> GetUserInformationAsync(AuthenticationProperties properties, TokenResponse tokens)
+        protected override async Task<AuthenticationTicket> CreateTicketAsync(ClaimsIdentity identity, AuthenticationProperties properties, OAuthTokenResponse tokens)
         {
-            var graphAddress = Options.UserInformationEndpoint + "?format=json&oauth2_access_token=" + Uri.EscapeDataString(tokens.AccessToken);
+            var endpoint = QueryHelpers.AddQueryString(Options.UserInformationEndpoint, new Dictionary<string, string>
+            {
+                { "format", "json" },
+                { "oauth2_access_token", tokens.AccessToken }
+            });
 
-            var graphResponse = await Backchannel.GetAsync(graphAddress, Context.RequestAborted);
-            graphResponse.EnsureSuccessStatusCode();
-            var text = await graphResponse.Content.ReadAsStringAsync();
-            var user = JObject.Parse(text);
+            var response = await Backchannel.GetAsync(endpoint, Context.RequestAborted);
+            response.EnsureSuccessStatusCode();
 
-            var context = new LinkedInAuthenticatedContext(Context, Options, user, tokens);
-            var identity = new ClaimsIdentity(
-                Options.ClaimsIssuer,
-                ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
-            if (!string.IsNullOrEmpty(context.Id))
-            {
-                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, context.Id, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            if (!string.IsNullOrEmpty(context.UserName))
-            {
-                identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            if (!string.IsNullOrEmpty(context.Email))
-            {
-                identity.AddClaim(new Claim(ClaimTypes.Email, context.Email, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            if (!string.IsNullOrEmpty(context.FirstName))
-            {
-                identity.AddClaim(new Claim(ClaimTypes.GivenName, context.FirstName, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            if (!string.IsNullOrEmpty(context.LastName))
-            {
-                identity.AddClaim(new Claim(ClaimTypes.Surname, context.LastName, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            if (!string.IsNullOrEmpty(context.Url))
-            {
-                identity.AddClaim(new Claim("urn:linkedin:link", context.Url, ClaimValueTypes.String, Options.ClaimsIssuer));
-            }
-            context.Properties = properties;
-            context.Principal = new ClaimsPrincipal(identity);
+            var payload = JObject.Parse(await response.Content.ReadAsStringAsync());
 
-            await Options.Notifications.Authenticated(context);
+            var notification = new OAuthAuthenticatedContext(Context, Options, Backchannel, tokens, payload)
+            {
+                Properties = properties,
+                Principal = new ClaimsPrincipal(identity)
+            };
 
-            return new AuthenticationTicket(context.Principal, context.Properties, context.Options.AuthenticationScheme);
+            var identifier = LinkedInAuthenticationHelper.GetId(payload);
+            if (!string.IsNullOrEmpty(identifier))
+            {
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, identifier, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            var userName = LinkedInAuthenticationHelper.GetUserName(payload);
+            if (!string.IsNullOrEmpty(userName))
+            {
+                identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, userName, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            var email = LinkedInAuthenticationHelper.GetEmail(payload);
+            if (!string.IsNullOrEmpty(email))
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Email, email, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            var firstName = LinkedInAuthenticationHelper.GetFirstName(payload);
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                identity.AddClaim(new Claim(ClaimTypes.GivenName, firstName, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            var lastName = LinkedInAuthenticationHelper.GetLastName(payload);
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Surname, lastName, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            var link = LinkedInAuthenticationHelper.GetLink(payload);
+            if (!string.IsNullOrEmpty(link))
+            {
+                identity.AddClaim(new Claim("urn:linkedin:link", link, ClaimValueTypes.String, Options.ClaimsIssuer));
+            }
+
+            await Options.Notifications.Authenticated(notification);
+
+            return new AuthenticationTicket(notification.Principal, notification.Properties, notification.Options.AuthenticationScheme);
         }
     }
 }

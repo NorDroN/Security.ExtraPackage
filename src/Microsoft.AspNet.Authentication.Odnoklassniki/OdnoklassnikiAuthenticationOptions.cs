@@ -9,7 +9,7 @@ namespace Microsoft.AspNet.Authentication.Odnoklassniki
     /// <summary>
     /// Configuration options for <see cref="OdnoklassnikiAuthenticationMiddleware"/>.
     /// </summary>
-    public class OdnoklassnikiAuthenticationOptions : OAuthAuthenticationOptions<IOdnoklassnikiAuthenticationNotifications>
+    public class OdnoklassnikiAuthenticationOptions : OAuthAuthenticationOptions
     {
         /// <summary>
         /// Initializes a new <see cref="OdnoklassnikiAuthenticationOptions"/>.
@@ -22,6 +22,7 @@ namespace Microsoft.AspNet.Authentication.Odnoklassniki
             AuthorizationEndpoint = OdnoklassnikiAuthenticationDefaults.AuthorizationEndpoint;
             TokenEndpoint = OdnoklassnikiAuthenticationDefaults.TokenEndpoint;
             UserInformationEndpoint = OdnoklassnikiAuthenticationDefaults.UserInformationEndpoint;
+            SaveTokensAsClaims = false;
         }
 
         //

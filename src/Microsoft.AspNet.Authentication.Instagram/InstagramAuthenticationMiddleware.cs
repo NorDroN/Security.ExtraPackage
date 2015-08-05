@@ -16,29 +16,28 @@ namespace Microsoft.AspNet.Authentication.Instagram
     /// <summary>
     /// An ASP.NET middleware for authenticating users using Instagram.
     /// </summary>
-    public class InstagramAuthenticationMiddleware : OAuthAuthenticationMiddleware<InstagramAuthenticationOptions, IInstagramAuthenticationNotifications>
+    public class InstagramAuthenticationMiddleware : OAuthAuthenticationMiddleware<InstagramAuthenticationOptions>
     {
         /// <summary>
         /// Initializes a new <see cref="InstagramAuthenticationMiddleware"/>.
         /// </summary>
-        /// <param name="next">The next middleware in the application pipeline to invoke.</param>
+        /// <param name="next">The next middleware in the HTTP pipeline to invoke.</param>
         /// <param name="dataProtectionProvider"></param>
         /// <param name="loggerFactory"></param>
+        /// <param name="encoder"></param>
+        /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
+        /// <param name="configureOptions"></param>
         public InstagramAuthenticationMiddleware(
             [NotNull] RequestDelegate next,
             [NotNull] IDataProtectionProvider dataProtectionProvider,
             [NotNull] ILoggerFactory loggerFactory,
             [NotNull] IUrlEncoder encoder,
-            [NotNull] IOptions<ExternalAuthenticationOptions> externalOptions,
+            [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
             [NotNull] IOptions<InstagramAuthenticationOptions> options,
             ConfigureOptions<InstagramAuthenticationOptions> configureOptions = null)
-            : base(next, dataProtectionProvider, loggerFactory, encoder, externalOptions, options, configureOptions)
+            : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options, configureOptions)
         {
-            if (Options.Notifications == null)
-            {
-                Options.Notifications = new InstagramAuthenticationNotifications();
-            }
             if (Options.Scope.Count == 0)
             {
                 // Instagram requires a scope string, so if the user didn't set one we go for the least possible.
