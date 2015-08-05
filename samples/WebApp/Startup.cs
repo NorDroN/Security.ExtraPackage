@@ -19,7 +19,7 @@ namespace WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication();
-            services.Configure<ExternalAuthenticationOptions>(options =>
+            services.Configure<SharedAuthenticationOptions>(options =>
             {
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
@@ -67,6 +67,12 @@ namespace WebApp
                 options.ClientSecret = "b760abd2ce3844d4b93bb5dcf9dc5f66";
             });
 
+            app.UseFoursquareAuthentication(options =>
+            {
+                options.ClientId = "AZGRK3HBBHKLJLLVKG40ZDAGDQGW44DYHSOEJVSJVT0PGYWU";
+                options.ClientSecret = "LHZ5VFQG4L5CB0WT4RONQEFMMZRWRODZQ1HKDQE5CGMS5WXU";
+            });
+
             // Choose an authentication type
             app.Map("/login", signoutApp =>
             {
@@ -77,7 +83,7 @@ namespace WebApp
                     {
                         // By default the client will be redirect back to the URL that issued the challenge (/login?authtype=foo),
                         // send them to the home page instead (/).
-                        context.Authentication.Challenge(authType, new AuthenticationProperties() { RedirectUri = "/" });
+                        await context.Authentication.ChallengeAsync(authType, new AuthenticationProperties() { RedirectUri = "/" });
                         return;
                     }
 
@@ -97,7 +103,7 @@ namespace WebApp
             {
                 signoutApp.Run(async context =>
                 {
-                    context.Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationScheme);
+                    await context.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                     context.Response.ContentType = "text/html; charset=utf-8";
                     await context.Response.WriteAsync("<html><body>");
                     await context.Response.WriteAsync("You have been logged out. Goodbye " + context.User.Identity.Name + "<br>");
@@ -112,7 +118,7 @@ namespace WebApp
                 if (string.IsNullOrEmpty(context.User.Identity.Name))
                 {
                     // The cookie middleware will intercept this 401 and redirect to /login
-                    context.Authentication.Challenge();
+                    await context.Authentication.ChallengeAsync();
                     return;
                 }
                 await next();

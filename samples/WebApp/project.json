@@ -5,6 +5,7 @@
     "Microsoft.AspNet.Authentication.Odnoklassniki": "1.0.0-*",
     "Microsoft.AspNet.Authentication.LinkedIn": "1.0.0-*",
     "Microsoft.AspNet.Authentication.Instagram": "1.0.0-*",
+    "Microsoft.AspNet.Authentication.Foursquare": "1.0.0-*",
     "Microsoft.AspNet.Server.IIS": "1.0.0-*",
     "Microsoft.AspNet.Server.WebListener": "1.0.0-*",
     "Microsoft.Framework.Logging.Console": "1.0.0-*"
@@ -18,7 +19,5 @@
   "frameworks": {
     "dnx451": { },
     "dnxcore50": { }
-  },
-
-  "webroot": "wwwroot"
+  }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ABE9B963-4B85-4674-BFA6-9E79E7E905D2}"
 EndProject
@@ -21,6 +21,8 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebApp", "samples\WebApp\WebApp.xproj", "{5276BC73-97EE-4922-9E71-D3183F74DCA6}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Microsoft.AspNet.Authentication.Instagram", "src\Microsoft.AspNet.Authentication.Instagram\Microsoft.AspNet.Authentication.Instagram.xproj", "{44828242-7F5C-4E18-9C0B-A1343456E6E2}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Microsoft.AspNet.Authentication.Foursquare", "src\Microsoft.AspNet.Authentication.Foursquare\Microsoft.AspNet.Authentication.Foursquare.xproj", "{6257CBC4-5BEA-4B92-BE81-07FC1504B503}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{44828242-7F5C-4E18-9C0B-A1343456E6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44828242-7F5C-4E18-9C0B-A1343456E6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44828242-7F5C-4E18-9C0B-A1343456E6E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6257CBC4-5BEA-4B92-BE81-07FC1504B503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6257CBC4-5BEA-4B92-BE81-07FC1504B503}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6257CBC4-5BEA-4B92-BE81-07FC1504B503}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6257CBC4-5BEA-4B92-BE81-07FC1504B503}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +64,6 @@ Global
 		{5F33927E-3CB4-4F0B-BBF4-1E2455011F9F} = {ABE9B963-4B85-4674-BFA6-9E79E7E905D2}
 		{5276BC73-97EE-4922-9E71-D3183F74DCA6} = {569483E3-5F49-4102-A427-7F9C24C0E9D9}
 		{44828242-7F5C-4E18-9C0B-A1343456E6E2} = {ABE9B963-4B85-4674-BFA6-9E79E7E905D2}
+		{6257CBC4-5BEA-4B92-BE81-07FC1504B503} = {ABE9B963-4B85-4674-BFA6-9E79E7E905D2}
 	EndGlobalSection
 EndGlobal
