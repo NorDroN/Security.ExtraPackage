@@ -15,22 +15,12 @@ namespace Microsoft.Framework.DependencyInjection
     {
         public static IServiceCollection ConfigureLinkedInAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<LinkedInAuthenticationOptions> configure)
         {
-            return services.ConfigureLinkedInAuthentication(configure, optionsName: "");
-        }
-
-        public static IServiceCollection ConfigureLinkedInAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<LinkedInAuthenticationOptions> configure, string optionsName)
-        {
-            return services.Configure(configure, optionsName);
+            return services.Configure(configure);
         }
 
         public static IServiceCollection ConfigureLinkedInAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config)
         {
-            return services.ConfigureLinkedInAuthentication(config, optionsName: "");
-        }
-
-        public static IServiceCollection ConfigureLinkedInAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config, string optionsName)
-        {
-            return services.Configure<LinkedInAuthenticationOptions>(config, optionsName);
+            return services.Configure<LinkedInAuthenticationOptions>(config);
         }
     }
 }

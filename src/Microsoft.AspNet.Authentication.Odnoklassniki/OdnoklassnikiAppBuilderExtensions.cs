@@ -21,10 +21,7 @@ namespace Microsoft.AspNet.Builder
         public static IApplicationBuilder UseOdnoklassnikiAuthentication([NotNull] this IApplicationBuilder app, Action<OdnoklassnikiAuthenticationOptions> configureOptions = null, string optionsName = "")
         {
             return app.UseMiddleware<OdnoklassnikiAuthenticationMiddleware>(
-                 new ConfigureOptions<OdnoklassnikiAuthenticationOptions>(configureOptions ?? (o => { }))
-                 {
-                     Name = optionsName
-                 });
+                 new ConfigureOptions<OdnoklassnikiAuthenticationOptions>(configureOptions ?? (o => { })));
         }
     }
 }

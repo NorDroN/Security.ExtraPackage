@@ -21,10 +21,7 @@ namespace Microsoft.AspNet.Builder
         public static IApplicationBuilder UseVKAuthentication([NotNull] this IApplicationBuilder app, Action<VKAuthenticationOptions> configureOptions = null, string optionsName = "")
         {
             return app.UseMiddleware<VKAuthenticationMiddleware>(
-                 new ConfigureOptions<VKAuthenticationOptions>(configureOptions ?? (o => { }))
-                 {
-                     Name = optionsName
-                 });
+                 new ConfigureOptions<VKAuthenticationOptions>(configureOptions ?? (o => { })));
         }
     }
 }

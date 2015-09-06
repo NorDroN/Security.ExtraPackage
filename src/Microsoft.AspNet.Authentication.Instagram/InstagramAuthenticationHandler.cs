@@ -45,7 +45,7 @@ namespace Microsoft.AspNet.Authentication.Instagram
                 identity.AddClaim(new Claim("urn:instagram:fullname", fullName, ClaimValueTypes.String, Options.ClaimsIssuer));
             }
 
-            await Options.Notifications.Authenticated(notification);
+            await Options.Events.Authenticated(notification);
 
             return new AuthenticationTicket(notification.Principal, notification.Properties, notification.Options.AuthenticationScheme);
         }

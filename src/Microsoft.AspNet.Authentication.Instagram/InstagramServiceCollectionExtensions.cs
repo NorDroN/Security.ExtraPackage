@@ -15,22 +15,12 @@ namespace Microsoft.Framework.DependencyInjection
     {
         public static IServiceCollection ConfigureInstagramAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<InstagramAuthenticationOptions> configure)
         {
-            return services.ConfigureInstagramAuthentication(configure, optionsName: "");
-        }
-
-        public static IServiceCollection ConfigureInstagramAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<InstagramAuthenticationOptions> configure, string optionsName)
-        {
-            return services.Configure(configure, optionsName);
+            return services.Configure(configure);
         }
 
         public static IServiceCollection ConfigureInstagramAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config)
         {
-            return services.ConfigureInstagramAuthentication(config, optionsName: "");
-        }
-
-        public static IServiceCollection ConfigureInstagramAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config, string optionsName)
-        {
-            return services.Configure<InstagramAuthenticationOptions>(config, optionsName);
+            return services.Configure<InstagramAuthenticationOptions>(config);
         }
     }
 }

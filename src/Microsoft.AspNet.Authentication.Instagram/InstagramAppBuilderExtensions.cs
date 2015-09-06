@@ -21,10 +21,7 @@ namespace Microsoft.AspNet.Builder
         public static IApplicationBuilder UseInstagramAuthentication([NotNull] this IApplicationBuilder app, Action<InstagramAuthenticationOptions> configureOptions = null, string optionsName = "")
         {
             return app.UseMiddleware<InstagramAuthenticationMiddleware>(
-                 new ConfigureOptions<InstagramAuthenticationOptions>(configureOptions ?? (o => { }))
-                 {
-                     Name = optionsName
-                 });
+                 new ConfigureOptions<InstagramAuthenticationOptions>(configureOptions ?? (o => { })));
         }
     }
 }

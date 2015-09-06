@@ -21,10 +21,7 @@ namespace Microsoft.AspNet.Builder
         public static IApplicationBuilder UseFoursquareAuthentication([NotNull] this IApplicationBuilder app, Action<FoursquareAuthenticationOptions> configureOptions = null, string optionsName = "")
         {
             return app.UseMiddleware<FoursquareAuthenticationMiddleware>(
-                 new ConfigureOptions<FoursquareAuthenticationOptions>(configureOptions ?? (o => { }))
-                 {
-                     Name = optionsName
-                 });
+                 new ConfigureOptions<FoursquareAuthenticationOptions>(configureOptions ?? (o => { })));
         }
     }
 }

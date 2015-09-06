@@ -15,22 +15,12 @@ namespace Microsoft.Framework.DependencyInjection
     {
         public static IServiceCollection ConfigureFoursquareAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<FoursquareAuthenticationOptions> configure)
         {
-            return services.ConfigureFoursquareAuthentication(configure, optionsName: "");
-        }
-
-        public static IServiceCollection ConfigureFoursquareAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<FoursquareAuthenticationOptions> configure, string optionsName)
-        {
-            return services.Configure(configure, optionsName);
+            return services.Configure(configure);
         }
 
         public static IServiceCollection ConfigureFoursquareAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config)
         {
-            return services.ConfigureFoursquareAuthentication(config, optionsName: "");
-        }
-
-        public static IServiceCollection ConfigureFoursquareAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config, string optionsName)
-        {
-            return services.Configure<FoursquareAuthenticationOptions>(config, optionsName);
+            return services.Configure<FoursquareAuthenticationOptions>(config);
         }
     }
 }

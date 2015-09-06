@@ -21,10 +21,7 @@ namespace Microsoft.AspNet.Builder
         public static IApplicationBuilder UseLinkedInAuthentication([NotNull] this IApplicationBuilder app, Action<LinkedInAuthenticationOptions> configureOptions = null, string optionsName = "")
         {
             return app.UseMiddleware<LinkedInAuthenticationMiddleware>(
-                 new ConfigureOptions<LinkedInAuthenticationOptions>(configureOptions ?? (o => { }))
-                 {
-                     Name = optionsName
-                 });
+                 new ConfigureOptions<LinkedInAuthenticationOptions>(configureOptions ?? (o => { })));
         }
     }
 }
