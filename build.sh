@@ -13,7 +13,7 @@ mkdir -p $cachedir
 nugetVersion=latest
 cachePath=$cachedir/nuget.$nugetVersion.exe
 
-url=https://dist.nuget.org/win-x86-commandline/$nugetVersion/nuget.exe
+url=https://api.nuget.org/downloads/nuget.exe
 
 if test ! -f $cachePath; then
     wget -O $cachePath $url 2>/dev/null || curl -o $cachePath --location $url /dev/null
