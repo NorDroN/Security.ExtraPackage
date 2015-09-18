@@ -11,15 +11,15 @@ using Microsoft.Framework.Logging;
 using Microsoft.Framework.OptionsModel;
 using Microsoft.Framework.WebEncoders;
 
-namespace Microsoft.AspNet.Authentication.LinkedIn
+namespace Microsoft.AspNet.Authentication.Foursquare
 {
     /// <summary>
-    /// An ASP.NET middleware for authenticating users using LinkedIn.
+    /// An ASP.NET middleware for authenticating users using Foursquare.
     /// </summary>
-    public class LinkedInAuthenticationMiddleware : OAuthAuthenticationMiddleware<LinkedInAuthenticationOptions>
+    public class FoursquareMiddleware : OAuthAuthenticationMiddleware<FoursquareOptions>
     {
         /// <summary>
-        /// Initializes a new <see cref="LinkedInAuthenticationMiddleware"/>.
+        /// Initializes a new <see cref="FoursquareMiddleware"/>.
         /// </summary>
         /// <param name="next">The next middleware in the HTTP pipeline to invoke.</param>
         /// <param name="dataProtectionProvider"></param>
@@ -28,26 +28,31 @@ namespace Microsoft.AspNet.Authentication.LinkedIn
         /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
         /// <param name="configureOptions"></param>
-        public LinkedInAuthenticationMiddleware(
+        public FoursquareMiddleware(
             [NotNull] RequestDelegate next,
             [NotNull] IDataProtectionProvider dataProtectionProvider,
             [NotNull] ILoggerFactory loggerFactory,
             [NotNull] IUrlEncoder encoder,
             [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
-            [NotNull] IOptions<LinkedInAuthenticationOptions> options,
-            ConfigureOptions<LinkedInAuthenticationOptions> configureOptions = null)
+            [NotNull] IOptions<FoursquareOptions> options,
+            ConfigureOptions<FoursquareOptions> configureOptions = null)
             : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options, configureOptions)
         {
-
+            if (Options.Scope.Count == 0)
+            {
+                // Foursquare requires a scope string, so if the user didn't set one we go for the least possible.
+                // TODO: Should we just add these by default when we create the Options?
+                Options.Scope.Add("basic");
+            }
         }
 
         /// <summary>
         /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests.
         /// </summary>
-        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="LinkedInAuthenticationOptions"/> supplied to the constructor.</returns>
-        protected override AuthenticationHandler<LinkedInAuthenticationOptions> CreateHandler()
+        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="FoursquareOptions"/> supplied to the constructor.</returns>
+        protected override AuthenticationHandler<FoursquareOptions> CreateHandler()
         {
-            return new LinkedInAuthenticationHandler(Backchannel);
+            return new FoursquareHandler(Backchannel);
         }
     }
 }

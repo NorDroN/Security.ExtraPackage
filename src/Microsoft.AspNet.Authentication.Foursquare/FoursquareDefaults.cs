@@ -3,7 +3,7 @@
 
 namespace Microsoft.AspNet.Authentication.Foursquare
 {
-    public static class FoursquareAuthenticationDefaults
+    public static class FoursquareDefaults
     {
         public const string AuthenticationScheme = "Foursquare";
 

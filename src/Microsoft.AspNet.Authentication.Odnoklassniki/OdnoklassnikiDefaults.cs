@@ -3,7 +3,7 @@
 
 namespace Microsoft.AspNet.Authentication.Odnoklassniki
 {
-    public static class OdnoklassnikiAuthenticationDefaults
+    public static class OdnoklassnikiDefaults
     {
         public const string AuthenticationScheme = "Odnoklassniki";
 

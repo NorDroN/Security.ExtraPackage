@@ -11,15 +11,15 @@ using Microsoft.Framework.Logging;
 using Microsoft.Framework.OptionsModel;
 using Microsoft.Framework.WebEncoders;
 
-namespace Microsoft.AspNet.Authentication.Instagram
+namespace Microsoft.AspNet.Authentication.VK
 {
     /// <summary>
-    /// An ASP.NET middleware for authenticating users using Instagram.
+    /// An ASP.NET middleware for authenticating users using VK.
     /// </summary>
-    public class InstagramAuthenticationMiddleware : OAuthAuthenticationMiddleware<InstagramAuthenticationOptions>
+    public class VKMiddleware : OAuthAuthenticationMiddleware<VKOptions>
     {
         /// <summary>
-        /// Initializes a new <see cref="InstagramAuthenticationMiddleware"/>.
+        /// Initializes a new <see cref="VKMiddleware"/>.
         /// </summary>
         /// <param name="next">The next middleware in the HTTP pipeline to invoke.</param>
         /// <param name="dataProtectionProvider"></param>
@@ -28,31 +28,30 @@ namespace Microsoft.AspNet.Authentication.Instagram
         /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
         /// <param name="configureOptions"></param>
-        public InstagramAuthenticationMiddleware(
+        public VKMiddleware(
             [NotNull] RequestDelegate next,
             [NotNull] IDataProtectionProvider dataProtectionProvider,
             [NotNull] ILoggerFactory loggerFactory,
             [NotNull] IUrlEncoder encoder,
             [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
-            [NotNull] IOptions<InstagramAuthenticationOptions> options,
-            ConfigureOptions<InstagramAuthenticationOptions> configureOptions = null)
+            [NotNull] IOptions<VKOptions> options,
+            ConfigureOptions<VKOptions> configureOptions = null)
             : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options, configureOptions)
         {
             if (Options.Scope.Count == 0)
             {
-                // Instagram requires a scope string, so if the user didn't set one we go for the least possible.
                 // TODO: Should we just add these by default when we create the Options?
-                Options.Scope.Add("basic");
+                Options.Scope.Add("email");
             }
         }
 
         /// <summary>
         /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests.
         /// </summary>
-        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="InstagramAuthenticationOptions"/> supplied to the constructor.</returns>
-        protected override AuthenticationHandler<InstagramAuthenticationOptions> CreateHandler()
+        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="VKOptions"/> supplied to the constructor.</returns>
+        protected override AuthenticationHandler<VKOptions> CreateHandler()
         {
-            return new InstagramAuthenticationHandler(Backchannel);
+            return new VKHandler(Backchannel);
         }
     }
 }

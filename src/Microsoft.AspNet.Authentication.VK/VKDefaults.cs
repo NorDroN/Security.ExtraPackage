@@ -3,7 +3,7 @@
 
 namespace Microsoft.AspNet.Authentication.VK
 {
-    public static class VKAuthenticationDefaults
+    public static class VKDefaults
     {
         public const string AuthenticationScheme = "VK";
 

@@ -7,21 +7,21 @@ using Microsoft.AspNet.Authentication.OAuth;
 namespace Microsoft.AspNet.Authentication.Odnoklassniki
 {
     /// <summary>
-    /// Configuration options for <see cref="OdnoklassnikiAuthenticationMiddleware"/>.
+    /// Configuration options for <see cref="OdnoklassnikiMiddleware"/>.
     /// </summary>
-    public class OdnoklassnikiAuthenticationOptions : OAuthAuthenticationOptions
+    public class OdnoklassnikiOptions : OAuthAuthenticationOptions
     {
         /// <summary>
-        /// Initializes a new <see cref="OdnoklassnikiAuthenticationOptions"/>.
+        /// Initializes a new <see cref="OdnoklassnikiOptions"/>.
         /// </summary>
-        public OdnoklassnikiAuthenticationOptions()
+        public OdnoklassnikiOptions()
         {
-            AuthenticationScheme = OdnoklassnikiAuthenticationDefaults.AuthenticationScheme;
+            AuthenticationScheme = OdnoklassnikiDefaults.AuthenticationScheme;
             Caption = AuthenticationScheme;
             CallbackPath = new PathString("/signin-Odnoklassniki");
-            AuthorizationEndpoint = OdnoklassnikiAuthenticationDefaults.AuthorizationEndpoint;
-            TokenEndpoint = OdnoklassnikiAuthenticationDefaults.TokenEndpoint;
-            UserInformationEndpoint = OdnoklassnikiAuthenticationDefaults.UserInformationEndpoint;
+            AuthorizationEndpoint = OdnoklassnikiDefaults.AuthorizationEndpoint;
+            TokenEndpoint = OdnoklassnikiDefaults.TokenEndpoint;
+            UserInformationEndpoint = OdnoklassnikiDefaults.UserInformationEndpoint;
             SaveTokensAsClaims = false;
         }
 

@@ -4,36 +4,36 @@
 using Microsoft.Framework.Internal;
 using Newtonsoft.Json.Linq;
 
-namespace Microsoft.AspNet.Authentication.VK
+namespace Microsoft.AspNet.Authentication.Odnoklassniki
 {
     /// <summary>
     /// Contains static methods that allow to extract user's information from a <see cref="JObject"/>
-    /// instance retrieved from VK after a successful authentication process.
+    /// instance retrieved from Odnoklassniki after a successful authentication process.
     /// </summary>
-    public static class VKAuthenticationHelper
+    public static class OdnoklassnikiHelper
     {
         /// <summary>
-        /// Gets the VK user ID.
+        /// Gets the Odnoklassniki user ID.
         /// </summary>
         public static string GetId([NotNull] JObject user) => user.Value<string>("uid");
 
         /// <summary>
-        /// Gets the user's name.
-        /// </summary>
-        public static string GetFirstName([NotNull] JObject user) => user.Value<string>("first_name");
-
-        /// <summary>
-        /// Gets the user's link.
+        /// Gets the user's last name.
         /// </summary>
         public static string GetLastName([NotNull] JObject user) => user.Value<string>("last_name");
 
         /// <summary>
-        /// Gets the VK username.
+        /// Gets the user's first name.
         /// </summary>
-        public static string GetUserName([NotNull] JObject user) => user.Value<string>("screen_name");
+        public static string GetFirstName([NotNull] JObject user) => user.Value<string>("first_name");
 
         /// <summary>
-        /// Gets the VK email.
+        /// Gets the Odnoklassniki username.
+        /// </summary>
+        public static string GetUserName([NotNull] JObject user) => user.Value<string>("name");
+
+        /// <summary>
+        /// Gets the Odnoklassniki email.
         /// </summary>
         public static string GetEmail([NotNull] JObject user) => user.Value<string>("email");
     }

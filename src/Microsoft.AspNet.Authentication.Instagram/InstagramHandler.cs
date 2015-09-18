@@ -10,9 +10,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.AspNet.Authentication.Instagram
 {
-    internal class InstagramAuthenticationHandler : OAuthAuthenticationHandler<InstagramAuthenticationOptions>
+    internal class InstagramHandler : OAuthAuthenticationHandler<InstagramOptions>
     {
-        public InstagramAuthenticationHandler(HttpClient httpClient)
+        public InstagramHandler(HttpClient httpClient)
             : base(httpClient)
         {
         }
@@ -27,19 +27,19 @@ namespace Microsoft.AspNet.Authentication.Instagram
                 Principal = new ClaimsPrincipal(identity)
             };
 
-            var identifier = InstagramAuthenticationHelper.GetId(payload);
+            var identifier = InstagramHelper.GetId(payload);
             if (!string.IsNullOrEmpty(identifier))
             {
                 identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, identifier, ClaimValueTypes.String, Options.ClaimsIssuer));
             }
 
-            var userName = InstagramAuthenticationHelper.GetUserName(payload);
+            var userName = InstagramHelper.GetUserName(payload);
             if (!string.IsNullOrEmpty(userName))
             {
                 identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, userName, ClaimValueTypes.String, Options.ClaimsIssuer));
             }
 
-            var fullName = InstagramAuthenticationHelper.GetFullName(payload);
+            var fullName = InstagramHelper.GetFullName(payload);
             if (!string.IsNullOrEmpty(fullName))
             {
                 identity.AddClaim(new Claim("urn:instagram:fullname", fullName, ClaimValueTypes.String, Options.ClaimsIssuer));

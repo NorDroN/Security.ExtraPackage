@@ -9,7 +9,7 @@ using Microsoft.Framework.OptionsModel;
 namespace Microsoft.AspNet.Builder
 {
     /// <summary>
-    /// Extension methods for using <see cref="InstagramAuthenticationMiddleware"/>.
+    /// Extension methods for using <see cref="InstagramMiddleware"/>.
     /// </summary>
     public static class InstagramAppBuilderExtensions
     {
@@ -18,10 +18,10 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseInstagramAuthentication([NotNull] this IApplicationBuilder app, Action<InstagramAuthenticationOptions> configureOptions = null, string optionsName = "")
+        public static IApplicationBuilder UseInstagramAuthentication([NotNull] this IApplicationBuilder app, Action<InstagramOptions> configureOptions = null, string optionsName = "")
         {
-            return app.UseMiddleware<InstagramAuthenticationMiddleware>(
-                 new ConfigureOptions<InstagramAuthenticationOptions>(configureOptions ?? (o => { })));
+            return app.UseMiddleware<InstagramMiddleware>(
+                 new ConfigureOptions<InstagramOptions>(configureOptions ?? (o => { })));
         }
     }
 }

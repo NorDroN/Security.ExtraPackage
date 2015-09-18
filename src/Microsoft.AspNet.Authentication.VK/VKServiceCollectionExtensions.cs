@@ -9,18 +9,18 @@ using Microsoft.Framework.Internal;
 namespace Microsoft.Framework.DependencyInjection
 {
     /// <summary>
-    /// Extension methods for using <see cref="VKAuthenticationMiddleware"/>.
+    /// Extension methods for using <see cref="VKMiddleware"/>.
     /// </summary>
     public static class VKServiceCollectionExtensions
     {
-        public static IServiceCollection ConfigureVKAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<VKAuthenticationOptions> configure)
+        public static IServiceCollection ConfigureVKAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<VKOptions> configure)
         {
             return services.Configure(configure);
         }
 
         public static IServiceCollection ConfigureVKAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config)
         {
-            return services.Configure<VKAuthenticationOptions>(config);
+            return services.Configure<VKOptions>(config);
         }
     }
 }

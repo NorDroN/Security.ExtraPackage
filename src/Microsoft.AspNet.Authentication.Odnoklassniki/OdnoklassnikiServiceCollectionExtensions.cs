@@ -9,18 +9,18 @@ using Microsoft.Framework.Internal;
 namespace Microsoft.Framework.DependencyInjection
 {
     /// <summary>
-    /// Extension methods for using <see cref="OdnoklassnikiAuthenticationMiddleware"/>.
+    /// Extension methods for using <see cref="OdnoklassnikiMiddleware"/>.
     /// </summary>
     public static class OdnoklassnikiServiceCollectionExtensions
     {
-        public static IServiceCollection ConfigureOdnoklassnikiAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<OdnoklassnikiAuthenticationOptions> configure)
+        public static IServiceCollection ConfigureOdnoklassnikiAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<OdnoklassnikiOptions> configure)
         {
             return services.Configure(configure);
         }
 
         public static IServiceCollection ConfigureOdnoklassnikiAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config)
         {
-            return services.Configure<OdnoklassnikiAuthenticationOptions>(config);
+            return services.Configure<OdnoklassnikiOptions>(config);
         }
     }
 }

@@ -9,18 +9,18 @@ using Microsoft.Framework.Internal;
 namespace Microsoft.Framework.DependencyInjection
 {
     /// <summary>
-    /// Extension methods for using <see cref="LinkedInAuthenticationMiddleware"/>.
+    /// Extension methods for using <see cref="LinkedInMiddleware"/>.
     /// </summary>
     public static class LinkedInServiceCollectionExtensions
     {
-        public static IServiceCollection ConfigureLinkedInAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<LinkedInAuthenticationOptions> configure)
+        public static IServiceCollection ConfigureLinkedInAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<LinkedInOptions> configure)
         {
             return services.Configure(configure);
         }
 
         public static IServiceCollection ConfigureLinkedInAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config)
         {
-            return services.Configure<LinkedInAuthenticationOptions>(config);
+            return services.Configure<LinkedInOptions>(config);
         }
     }
 }

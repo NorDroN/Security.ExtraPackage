@@ -10,7 +10,7 @@ namespace Microsoft.AspNet.Authentication.Instagram
     /// Contains static methods that allow to extract user's information from a <see cref="JObject"/>
     /// instance retrieved from Instagram after a successful authentication process.
     /// </summary>
-    public static class InstagramAuthenticationHelper
+    public static class InstagramHelper
     {
         /// <summary>
         /// Gets the Instagram user ID.

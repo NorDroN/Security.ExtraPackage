@@ -3,7 +3,7 @@
 
 namespace Microsoft.AspNet.Authentication.LinkedIn
 {
-    public static class LinkedInAuthenticationDefaults
+    public static class LinkedInDefaults
     {
         public const string AuthenticationScheme = "LinkedIn";
 

@@ -3,7 +3,7 @@
 
 namespace Microsoft.AspNet.Authentication.Instagram
 {
-    public static class InstagramAuthenticationDefaults
+    public static class InstagramDefaults
     {
         public const string AuthenticationScheme = "Instagram";
 

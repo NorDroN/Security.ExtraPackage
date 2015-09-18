@@ -9,7 +9,7 @@ using Microsoft.Framework.OptionsModel;
 namespace Microsoft.AspNet.Builder
 {
     /// <summary>
-    /// Extension methods for using <see cref="FoursquareAuthenticationMiddleware"/>.
+    /// Extension methods for using <see cref="FoursquareMiddleware"/>.
     /// </summary>
     public static class FoursquareAppBuilderExtensions
     {
@@ -18,10 +18,10 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseFoursquareAuthentication([NotNull] this IApplicationBuilder app, Action<FoursquareAuthenticationOptions> configureOptions = null, string optionsName = "")
+        public static IApplicationBuilder UseFoursquareAuthentication([NotNull] this IApplicationBuilder app, Action<FoursquareOptions> configureOptions = null, string optionsName = "")
         {
-            return app.UseMiddleware<FoursquareAuthenticationMiddleware>(
-                 new ConfigureOptions<FoursquareAuthenticationOptions>(configureOptions ?? (o => { })));
+            return app.UseMiddleware<FoursquareMiddleware>(
+                 new ConfigureOptions<FoursquareOptions>(configureOptions ?? (o => { })));
         }
     }
 }

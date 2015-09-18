@@ -10,7 +10,7 @@ namespace Microsoft.AspNet.Authentication.LinkedIn
     /// Contains static methods that allow to extract user's information from a <see cref="JObject"/>
     /// instance retrieved from LinkedIn after a successful authentication process.
     /// </summary>
-    public static class LinkedInAuthenticationHelper
+    public static class LinkedInHelper
     {
         /// <summary>
         /// Gets the LinkedIn user ID.

@@ -9,18 +9,18 @@ using Microsoft.Framework.Internal;
 namespace Microsoft.Framework.DependencyInjection
 {
     /// <summary>
-    /// Extension methods for using <see cref="FoursquareAuthenticationMiddleware"/>.
+    /// Extension methods for using <see cref="FoursquareMiddleware"/>.
     /// </summary>
     public static class FoursquareServiceCollectionExtensions
     {
-        public static IServiceCollection ConfigureFoursquareAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<FoursquareAuthenticationOptions> configure)
+        public static IServiceCollection ConfigureFoursquareAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<FoursquareOptions> configure)
         {
             return services.Configure(configure);
         }
 
         public static IServiceCollection ConfigureFoursquareAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config)
         {
-            return services.Configure<FoursquareAuthenticationOptions>(config);
+            return services.Configure<FoursquareOptions>(config);
         }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.Framework.OptionsModel;
 namespace Microsoft.AspNet.Builder
 {
     /// <summary>
-    /// Extension methods for using <see cref="LinkedInAuthenticationMiddleware"/>.
+    /// Extension methods for using <see cref="LinkedInMiddleware"/>.
     /// </summary>
     public static class LinkedInAppBuilderExtensions
     {
@@ -18,10 +18,10 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseLinkedInAuthentication([NotNull] this IApplicationBuilder app, Action<LinkedInAuthenticationOptions> configureOptions = null, string optionsName = "")
+        public static IApplicationBuilder UseLinkedInAuthentication([NotNull] this IApplicationBuilder app, Action<LinkedInOptions> configureOptions = null, string optionsName = "")
         {
-            return app.UseMiddleware<LinkedInAuthenticationMiddleware>(
-                 new ConfigureOptions<LinkedInAuthenticationOptions>(configureOptions ?? (o => { })));
+            return app.UseMiddleware<LinkedInMiddleware>(
+                 new ConfigureOptions<LinkedInOptions>(configureOptions ?? (o => { })));
         }
     }
 }

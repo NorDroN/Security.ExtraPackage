@@ -9,7 +9,7 @@ using Microsoft.Framework.OptionsModel;
 namespace Microsoft.AspNet.Builder
 {
     /// <summary>
-    /// Extension methods for using <see cref="VKAuthenticationMiddleware"/>.
+    /// Extension methods for using <see cref="VKMiddleware"/>.
     /// </summary>
     public static class VKAppBuilderExtensions
     {
@@ -18,10 +18,10 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseVKAuthentication([NotNull] this IApplicationBuilder app, Action<VKAuthenticationOptions> configureOptions = null, string optionsName = "")
+        public static IApplicationBuilder UseVKAuthentication([NotNull] this IApplicationBuilder app, Action<VKOptions> configureOptions = null, string optionsName = "")
         {
-            return app.UseMiddleware<VKAuthenticationMiddleware>(
-                 new ConfigureOptions<VKAuthenticationOptions>(configureOptions ?? (o => { })));
+            return app.UseMiddleware<VKMiddleware>(
+                 new ConfigureOptions<VKOptions>(configureOptions ?? (o => { })));
         }
     }
 }

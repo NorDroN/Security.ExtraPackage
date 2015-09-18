@@ -10,7 +10,7 @@ namespace Microsoft.AspNet.Authentication.Foursquare
     /// Contains static methods that allow to extract user's information from a <see cref="JObject"/>
     /// instance retrieved from Foursquare after a successful authentication process.
     /// </summary>
-    public static class FoursquareAuthenticationHelper
+    public static class FoursquareHelper
     {
         /// <summary>
         /// Gets the LinkedIn user ID.

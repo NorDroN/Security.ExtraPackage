@@ -11,15 +11,15 @@ using Microsoft.Framework.Logging;
 using Microsoft.Framework.OptionsModel;
 using Microsoft.Framework.WebEncoders;
 
-namespace Microsoft.AspNet.Authentication.VK
+namespace Microsoft.AspNet.Authentication.LinkedIn
 {
     /// <summary>
-    /// An ASP.NET middleware for authenticating users using VK.
+    /// An ASP.NET middleware for authenticating users using LinkedIn.
     /// </summary>
-    public class VKAuthenticationMiddleware : OAuthAuthenticationMiddleware<VKAuthenticationOptions>
+    public class LinkedInMiddleware : OAuthAuthenticationMiddleware<LinkedInOptions>
     {
         /// <summary>
-        /// Initializes a new <see cref="VKAuthenticationMiddleware"/>.
+        /// Initializes a new <see cref="LinkedInMiddleware"/>.
         /// </summary>
         /// <param name="next">The next middleware in the HTTP pipeline to invoke.</param>
         /// <param name="dataProtectionProvider"></param>
@@ -28,30 +28,26 @@ namespace Microsoft.AspNet.Authentication.VK
         /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
         /// <param name="configureOptions"></param>
-        public VKAuthenticationMiddleware(
+        public LinkedInMiddleware(
             [NotNull] RequestDelegate next,
             [NotNull] IDataProtectionProvider dataProtectionProvider,
             [NotNull] ILoggerFactory loggerFactory,
             [NotNull] IUrlEncoder encoder,
             [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
-            [NotNull] IOptions<VKAuthenticationOptions> options,
-            ConfigureOptions<VKAuthenticationOptions> configureOptions = null)
+            [NotNull] IOptions<LinkedInOptions> options,
+            ConfigureOptions<LinkedInOptions> configureOptions = null)
             : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options, configureOptions)
         {
-            if (Options.Scope.Count == 0)
-            {
-                // TODO: Should we just add these by default when we create the Options?
-                Options.Scope.Add("email");
-            }
+
         }
 
         /// <summary>
         /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests.
         /// </summary>
-        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="VKAuthenticationOptions"/> supplied to the constructor.</returns>
-        protected override AuthenticationHandler<VKAuthenticationOptions> CreateHandler()
+        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="LinkedInOptions"/> supplied to the constructor.</returns>
+        protected override AuthenticationHandler<LinkedInOptions> CreateHandler()
         {
-            return new VKAuthenticationHandler(Backchannel);
+            return new LinkedInHandler(Backchannel);
         }
     }
 }

@@ -11,15 +11,15 @@ using Microsoft.Framework.Logging;
 using Microsoft.Framework.OptionsModel;
 using Microsoft.Framework.WebEncoders;
 
-namespace Microsoft.AspNet.Authentication.Foursquare
+namespace Microsoft.AspNet.Authentication.Odnoklassniki
 {
     /// <summary>
-    /// An ASP.NET middleware for authenticating users using Foursquare.
+    /// An ASP.NET middleware for authenticating users using Odnoklassniki.
     /// </summary>
-    public class FoursquareAuthenticationMiddleware : OAuthAuthenticationMiddleware<FoursquareAuthenticationOptions>
+    public class OdnoklassnikiMiddleware : OAuthAuthenticationMiddleware<OdnoklassnikiOptions>
     {
         /// <summary>
-        /// Initializes a new <see cref="FoursquareAuthenticationMiddleware"/>.
+        /// Initializes a new <see cref="OdnoklassnikiMiddleware"/>.
         /// </summary>
         /// <param name="next">The next middleware in the HTTP pipeline to invoke.</param>
         /// <param name="dataProtectionProvider"></param>
@@ -28,31 +28,29 @@ namespace Microsoft.AspNet.Authentication.Foursquare
         /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
         /// <param name="configureOptions"></param>
-        public FoursquareAuthenticationMiddleware(
+        public OdnoklassnikiMiddleware(
             [NotNull] RequestDelegate next,
             [NotNull] IDataProtectionProvider dataProtectionProvider,
             [NotNull] ILoggerFactory loggerFactory,
             [NotNull] IUrlEncoder encoder,
             [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
-            [NotNull] IOptions<FoursquareAuthenticationOptions> options,
-            ConfigureOptions<FoursquareAuthenticationOptions> configureOptions = null)
+            [NotNull] IOptions<OdnoklassnikiOptions> options,
+            ConfigureOptions<OdnoklassnikiOptions> configureOptions = null)
             : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options, configureOptions)
         {
-            if (Options.Scope.Count == 0)
+            if (string.IsNullOrWhiteSpace(Options.ClientPublicKey))
             {
-                // Foursquare requires a scope string, so if the user didn't set one we go for the least possible.
-                // TODO: Should we just add these by default when we create the Options?
-                Options.Scope.Add("basic");
+                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exception_OptionMustBeProvided, nameof(Options.ClientPublicKey)));
             }
         }
 
         /// <summary>
         /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests.
         /// </summary>
-        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="FoursquareAuthenticationOptions"/> supplied to the constructor.</returns>
-        protected override AuthenticationHandler<FoursquareAuthenticationOptions> CreateHandler()
+        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="OdnoklassnikiOptions"/> supplied to the constructor.</returns>
+        protected override AuthenticationHandler<OdnoklassnikiOptions> CreateHandler()
         {
-            return new FoursquareAuthenticationHandler(Backchannel);
+            return new OdnoklassnikiHandler(Backchannel);
         }
     }
 }

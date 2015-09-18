@@ -11,15 +11,15 @@ using Microsoft.Framework.Logging;
 using Microsoft.Framework.OptionsModel;
 using Microsoft.Framework.WebEncoders;
 
-namespace Microsoft.AspNet.Authentication.Odnoklassniki
+namespace Microsoft.AspNet.Authentication.Instagram
 {
     /// <summary>
-    /// An ASP.NET middleware for authenticating users using Odnoklassniki.
+    /// An ASP.NET middleware for authenticating users using Instagram.
     /// </summary>
-    public class OdnoklassnikiAuthenticationMiddleware : OAuthAuthenticationMiddleware<OdnoklassnikiAuthenticationOptions>
+    public class InstagramMiddleware : OAuthAuthenticationMiddleware<InstagramOptions>
     {
         /// <summary>
-        /// Initializes a new <see cref="OdnoklassnikiAuthenticationMiddleware"/>.
+        /// Initializes a new <see cref="InstagramMiddleware"/>.
         /// </summary>
         /// <param name="next">The next middleware in the HTTP pipeline to invoke.</param>
         /// <param name="dataProtectionProvider"></param>
@@ -28,29 +28,31 @@ namespace Microsoft.AspNet.Authentication.Odnoklassniki
         /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
         /// <param name="configureOptions"></param>
-        public OdnoklassnikiAuthenticationMiddleware(
+        public InstagramMiddleware(
             [NotNull] RequestDelegate next,
             [NotNull] IDataProtectionProvider dataProtectionProvider,
             [NotNull] ILoggerFactory loggerFactory,
             [NotNull] IUrlEncoder encoder,
             [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
-            [NotNull] IOptions<OdnoklassnikiAuthenticationOptions> options,
-            ConfigureOptions<OdnoklassnikiAuthenticationOptions> configureOptions = null)
+            [NotNull] IOptions<InstagramOptions> options,
+            ConfigureOptions<InstagramOptions> configureOptions = null)
             : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options, configureOptions)
         {
-            if (string.IsNullOrWhiteSpace(Options.ClientPublicKey))
+            if (Options.Scope.Count == 0)
             {
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exception_OptionMustBeProvided, nameof(Options.ClientPublicKey)));
+                // Instagram requires a scope string, so if the user didn't set one we go for the least possible.
+                // TODO: Should we just add these by default when we create the Options?
+                Options.Scope.Add("basic");
             }
         }
 
         /// <summary>
         /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests.
         /// </summary>
-        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="OdnoklassnikiAuthenticationOptions"/> supplied to the constructor.</returns>
-        protected override AuthenticationHandler<OdnoklassnikiAuthenticationOptions> CreateHandler()
+        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="InstagramOptions"/> supplied to the constructor.</returns>
+        protected override AuthenticationHandler<InstagramOptions> CreateHandler()
         {
-            return new OdnoklassnikiAuthenticationHandler(Backchannel);
+            return new InstagramHandler(Backchannel);
         }
     }
 }

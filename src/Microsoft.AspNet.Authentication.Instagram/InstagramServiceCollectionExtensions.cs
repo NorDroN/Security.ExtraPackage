@@ -9,18 +9,18 @@ using Microsoft.Framework.Internal;
 namespace Microsoft.Framework.DependencyInjection
 {
     /// <summary>
-    /// Extension methods for using <see cref="InstagramAuthenticationMiddleware"/>.
+    /// Extension methods for using <see cref="InstagramMiddleware"/>.
     /// </summary>
     public static class InstagramServiceCollectionExtensions
     {
-        public static IServiceCollection ConfigureInstagramAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<InstagramAuthenticationOptions> configure)
+        public static IServiceCollection ConfigureInstagramAuthentication([NotNull] this IServiceCollection services, [NotNull] Action<InstagramOptions> configure)
         {
             return services.Configure(configure);
         }
 
         public static IServiceCollection ConfigureInstagramAuthentication([NotNull] this IServiceCollection services, [NotNull] IConfiguration config)
         {
-            return services.Configure<InstagramAuthenticationOptions>(config);
+            return services.Configure<InstagramOptions>(config);
         }
     }
 }
