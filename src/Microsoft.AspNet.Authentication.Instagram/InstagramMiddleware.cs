@@ -16,7 +16,7 @@ namespace Microsoft.AspNet.Authentication.Instagram
     /// <summary>
     /// An ASP.NET middleware for authenticating users using Instagram.
     /// </summary>
-    public class InstagramMiddleware : OAuthAuthenticationMiddleware<InstagramOptions>
+    public class InstagramMiddleware : OAuthMiddleware<InstagramOptions>
     {
         /// <summary>
         /// Initializes a new <see cref="InstagramMiddleware"/>.

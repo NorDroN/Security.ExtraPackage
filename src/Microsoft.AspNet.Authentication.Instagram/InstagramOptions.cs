@@ -9,7 +9,7 @@ namespace Microsoft.AspNet.Authentication.Instagram
     /// <summary>
     /// Configuration options for <see cref="InstagramMiddleware"/>.
     /// </summary>
-    public class InstagramOptions : OAuthAuthenticationOptions
+    public class InstagramOptions : OAuthOptions
     {
         /// <summary>
         /// Initializes a new <see cref="InstagramOptions"/>.

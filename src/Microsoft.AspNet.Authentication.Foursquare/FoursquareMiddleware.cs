@@ -16,7 +16,7 @@ namespace Microsoft.AspNet.Authentication.Foursquare
     /// <summary>
     /// An ASP.NET middleware for authenticating users using Foursquare.
     /// </summary>
-    public class FoursquareMiddleware : OAuthAuthenticationMiddleware<FoursquareOptions>
+    public class FoursquareMiddleware : OAuthMiddleware<FoursquareOptions>
     {
         /// <summary>
         /// Initializes a new <see cref="FoursquareMiddleware"/>.

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.AspNet.Authentication.VK
 {
-    internal class VKHandler : OAuthAuthenticationHandler<VKOptions>
+    internal class VKHandler : OAuthHandler<VKOptions>
     {
         public VKHandler(HttpClient httpClient)
             : base(httpClient)

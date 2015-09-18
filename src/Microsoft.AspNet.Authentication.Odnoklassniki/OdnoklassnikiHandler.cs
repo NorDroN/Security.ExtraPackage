@@ -16,7 +16,7 @@ using Microsoft.AspNet.WebUtilities;
 
 namespace Microsoft.AspNet.Authentication.Odnoklassniki
 {
-    internal class OdnoklassnikiHandler : OAuthAuthenticationHandler<OdnoklassnikiOptions>
+    internal class OdnoklassnikiHandler : OAuthHandler<OdnoklassnikiOptions>
     {
         public OdnoklassnikiHandler(HttpClient httpClient)
             : base(httpClient)

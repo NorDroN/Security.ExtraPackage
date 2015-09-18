@@ -9,7 +9,7 @@ namespace Microsoft.AspNet.Authentication.VK
     /// <summary>
     /// Configuration options for <see cref="VKMiddleware"/>.
     /// </summary>
-    public class VKOptions : OAuthAuthenticationOptions
+    public class VKOptions : OAuthOptions
     {
         /// <summary>
         /// Initializes a new <see cref="VKOptions"/>.

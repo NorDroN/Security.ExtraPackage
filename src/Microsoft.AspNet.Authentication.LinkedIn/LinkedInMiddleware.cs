@@ -16,7 +16,7 @@ namespace Microsoft.AspNet.Authentication.LinkedIn
     /// <summary>
     /// An ASP.NET middleware for authenticating users using LinkedIn.
     /// </summary>
-    public class LinkedInMiddleware : OAuthAuthenticationMiddleware<LinkedInOptions>
+    public class LinkedInMiddleware : OAuthMiddleware<LinkedInOptions>
     {
         /// <summary>
         /// Initializes a new <see cref="LinkedInMiddleware"/>.

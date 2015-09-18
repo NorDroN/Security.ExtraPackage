@@ -16,7 +16,7 @@ namespace Microsoft.AspNet.Authentication.VK
     /// <summary>
     /// An ASP.NET middleware for authenticating users using VK.
     /// </summary>
-    public class VKMiddleware : OAuthAuthenticationMiddleware<VKOptions>
+    public class VKMiddleware : OAuthMiddleware<VKOptions>
     {
         /// <summary>
         /// Initializes a new <see cref="VKMiddleware"/>.

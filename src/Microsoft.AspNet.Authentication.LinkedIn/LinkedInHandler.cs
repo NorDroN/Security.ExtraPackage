@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.AspNet.Authentication.LinkedIn
 {
-    internal class LinkedInHandler : OAuthAuthenticationHandler<LinkedInOptions>
+    internal class LinkedInHandler : OAuthHandler<LinkedInOptions>
     {
         public LinkedInHandler(HttpClient httpClient)
             : base(httpClient)

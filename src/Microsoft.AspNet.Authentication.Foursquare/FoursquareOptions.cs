@@ -9,7 +9,7 @@ namespace Microsoft.AspNet.Authentication.Foursquare
     /// <summary>
     /// Configuration options for <see cref="FoursquareMiddleware"/>.
     /// </summary>
-    public class FoursquareOptions : OAuthAuthenticationOptions
+    public class FoursquareOptions : OAuthOptions
     {
         /// <summary>
         /// Initializes a new <see cref="FoursquareOptions"/>.

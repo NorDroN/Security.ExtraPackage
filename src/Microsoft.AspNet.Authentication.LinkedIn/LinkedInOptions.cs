@@ -9,7 +9,7 @@ namespace Microsoft.AspNet.Authentication.LinkedIn
     /// <summary>
     /// Configuration options for <see cref="LinkedInMiddleware"/>.
     /// </summary>
-    public class LinkedInOptions : OAuthAuthenticationOptions
+    public class LinkedInOptions : OAuthOptions
     {
         /// <summary>
         /// Initializes a new <see cref="LinkedInOptions"/>.

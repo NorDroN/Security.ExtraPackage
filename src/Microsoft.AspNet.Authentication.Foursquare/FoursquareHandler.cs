@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.AspNet.Authentication.Foursquare
 {
-    internal class FoursquareHandler : OAuthAuthenticationHandler<FoursquareOptions>
+    internal class FoursquareHandler : OAuthHandler<FoursquareOptions>
     {
         public FoursquareHandler(HttpClient httpClient)
             : base(httpClient)

@@ -16,7 +16,7 @@ namespace Microsoft.AspNet.Authentication.Odnoklassniki
     /// <summary>
     /// An ASP.NET middleware for authenticating users using Odnoklassniki.
     /// </summary>
-    public class OdnoklassnikiMiddleware : OAuthAuthenticationMiddleware<OdnoklassnikiOptions>
+    public class OdnoklassnikiMiddleware : OAuthMiddleware<OdnoklassnikiOptions>
     {
         /// <summary>
         /// Initializes a new <see cref="OdnoklassnikiMiddleware"/>.

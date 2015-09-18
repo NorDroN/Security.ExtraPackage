@@ -9,7 +9,7 @@ namespace Microsoft.AspNet.Authentication.Odnoklassniki
     /// <summary>
     /// Configuration options for <see cref="OdnoklassnikiMiddleware"/>.
     /// </summary>
-    public class OdnoklassnikiOptions : OAuthAuthenticationOptions
+    public class OdnoklassnikiOptions : OAuthOptions
     {
         /// <summary>
         /// Initializes a new <see cref="OdnoklassnikiOptions"/>.

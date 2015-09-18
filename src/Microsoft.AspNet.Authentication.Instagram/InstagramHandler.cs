@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.AspNet.Authentication.Instagram
 {
-    internal class InstagramHandler : OAuthAuthenticationHandler<InstagramOptions>
+    internal class InstagramHandler : OAuthHandler<InstagramOptions>
     {
         public InstagramHandler(HttpClient httpClient)
             : base(httpClient)
