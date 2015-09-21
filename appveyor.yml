@@ -8,7 +8,7 @@ build_script:
   - echo %APPVEYOR_REPO_TAG%
   - echo %APPVEYOR_REPO_BRANCH%
   - echo %DNX_BUILD_VERSION%
-  - build.cmd --quiet verify
+  - build.cmd --quiet --parallel verify
 
 test: off
 
