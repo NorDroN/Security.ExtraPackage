@@ -17,11 +17,26 @@ namespace Microsoft.AspNet.Builder
         /// Authenticate users using Foursquare.
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
+        /// <param name="options">The Middleware options.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseFoursquareAuthentication([NotNull] this IApplicationBuilder app, Action<FoursquareOptions> configureOptions = null, string optionsName = "")
+        public static IApplicationBuilder UseFoursquareAuthentication([NotNull] this IApplicationBuilder app, [NotNull] FoursquareOptions options)
         {
-            return app.UseMiddleware<FoursquareMiddleware>(
-                 new ConfigureOptions<FoursquareOptions>(configureOptions ?? (o => { })));
+            return app.UseMiddleware<FoursquareMiddleware>(options);
+        }
+
+        /// <summary>
+        /// Authenticate users using Foursquare.
+        /// </summary>
+        /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
+        /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
+        public static IApplicationBuilder UseFoursquareAuthentication([NotNull] this IApplicationBuilder app, Action<FoursquareOptions> configureOptions)
+        {
+            var options = new FoursquareOptions();
+            if (configureOptions != null)
+            {
+                configureOptions(options);
+            }
+            return app.UseFoursquareAuthentication(options);
         }
     }
 }

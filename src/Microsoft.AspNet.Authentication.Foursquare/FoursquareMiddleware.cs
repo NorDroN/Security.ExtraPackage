@@ -34,9 +34,8 @@ namespace Microsoft.AspNet.Authentication.Foursquare
             [NotNull] ILoggerFactory loggerFactory,
             [NotNull] IUrlEncoder encoder,
             [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
-            [NotNull] IOptions<FoursquareOptions> options,
-            ConfigureOptions<FoursquareOptions> configureOptions = null)
-            : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options, configureOptions)
+            [NotNull] FoursquareOptions options)
+            : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options)
         {
             if (Options.Scope.Count == 0)
             {

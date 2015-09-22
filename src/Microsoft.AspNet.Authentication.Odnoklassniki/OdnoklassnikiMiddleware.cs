@@ -34,9 +34,8 @@ namespace Microsoft.AspNet.Authentication.Odnoklassniki
             [NotNull] ILoggerFactory loggerFactory,
             [NotNull] IUrlEncoder encoder,
             [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
-            [NotNull] IOptions<OdnoklassnikiOptions> options,
-            ConfigureOptions<OdnoklassnikiOptions> configureOptions = null)
-            : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options, configureOptions)
+            [NotNull] OdnoklassnikiOptions options)
+            : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options)
         {
             if (string.IsNullOrWhiteSpace(Options.ClientPublicKey))
             {

@@ -18,10 +18,24 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseLinkedInAuthentication([NotNull] this IApplicationBuilder app, Action<LinkedInOptions> configureOptions = null, string optionsName = "")
+        public static IApplicationBuilder UseLinkedInAuthentication([NotNull] this IApplicationBuilder app, [NotNull] LinkedInOptions options)
         {
-            return app.UseMiddleware<LinkedInMiddleware>(
-                 new ConfigureOptions<LinkedInOptions>(configureOptions ?? (o => { })));
+            return app.UseMiddleware<LinkedInMiddleware>(options);
+        }
+
+        /// <summary>
+        /// Authenticate users using LinkedIn.
+        /// </summary>
+        /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
+        /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
+        public static IApplicationBuilder UseLinkedInAuthentication([NotNull] this IApplicationBuilder app, Action<LinkedInOptions> configureOptions)
+        {
+            var options = new LinkedInOptions();
+            if (configureOptions != null)
+            {
+                configureOptions(options);
+            }
+            return app.UseLinkedInAuthentication(options);
         }
     }
 }

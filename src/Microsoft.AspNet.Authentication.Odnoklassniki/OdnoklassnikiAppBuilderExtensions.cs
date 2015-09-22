@@ -18,10 +18,24 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseOdnoklassnikiAuthentication([NotNull] this IApplicationBuilder app, Action<OdnoklassnikiOptions> configureOptions = null, string optionsName = "")
+        public static IApplicationBuilder UseOdnoklassnikiAuthentication([NotNull] this IApplicationBuilder app, [NotNull] OdnoklassnikiOptions options)
         {
-            return app.UseMiddleware<OdnoklassnikiMiddleware>(
-                 new ConfigureOptions<OdnoklassnikiOptions>(configureOptions ?? (o => { })));
+            return app.UseMiddleware<OdnoklassnikiMiddleware>(options);
+        }
+
+        /// <summary>
+        /// Authenticate users using Odnoklassniki.
+        /// </summary>
+        /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
+        /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
+        public static IApplicationBuilder UseOdnoklassnikiAuthentication([NotNull] this IApplicationBuilder app, Action<OdnoklassnikiOptions> configureOptions)
+        {
+            var options = new OdnoklassnikiOptions();
+            if (configureOptions != null)
+            {
+                configureOptions(options);
+            }
+            return app.UseOdnoklassnikiAuthentication(options);
         }
     }
 }

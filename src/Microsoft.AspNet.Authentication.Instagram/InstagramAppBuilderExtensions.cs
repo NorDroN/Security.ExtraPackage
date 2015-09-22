@@ -18,10 +18,24 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseInstagramAuthentication([NotNull] this IApplicationBuilder app, Action<InstagramOptions> configureOptions = null, string optionsName = "")
+        public static IApplicationBuilder UseInstagramAuthentication([NotNull] this IApplicationBuilder app, [NotNull] InstagramOptions options)
         {
-            return app.UseMiddleware<InstagramMiddleware>(
-                 new ConfigureOptions<InstagramOptions>(configureOptions ?? (o => { })));
+            return app.UseMiddleware<InstagramMiddleware>(options);
+        }
+
+        /// <summary>
+        /// Authenticate users using Instagram.
+        /// </summary>
+        /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
+        /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
+        public static IApplicationBuilder UseInstagramAuthentication([NotNull] this IApplicationBuilder app, Action<InstagramOptions> configureOptions)
+        {
+            var options = new InstagramOptions();
+            if (configureOptions != null)
+            {
+                configureOptions(options);
+            }
+            return app.UseInstagramAuthentication(options);
         }
     }
 }

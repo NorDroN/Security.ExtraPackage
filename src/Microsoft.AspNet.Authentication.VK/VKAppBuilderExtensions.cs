@@ -18,10 +18,24 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseVKAuthentication([NotNull] this IApplicationBuilder app, Action<VKOptions> configureOptions = null, string optionsName = "")
+        public static IApplicationBuilder UseVKAuthentication([NotNull] this IApplicationBuilder app, [NotNull] VKOptions options)
         {
-            return app.UseMiddleware<VKMiddleware>(
-                 new ConfigureOptions<VKOptions>(configureOptions ?? (o => { })));
+            return app.UseMiddleware<VKMiddleware>(options);
+        }
+
+        /// <summary>
+        /// Authenticate users using VK.
+        /// </summary>
+        /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
+        /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
+        public static IApplicationBuilder UseVKAuthentication([NotNull] this IApplicationBuilder app, Action<VKOptions> configureOptions)
+        {
+            var options = new VKOptions();
+            if (configureOptions != null)
+            {
+                configureOptions(options);
+            }
+            return app.UseVKAuthentication(options);
         }
     }
 }
