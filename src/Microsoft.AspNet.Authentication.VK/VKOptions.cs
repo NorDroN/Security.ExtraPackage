@@ -17,7 +17,7 @@ namespace Microsoft.AspNet.Authentication.VK
         public VKOptions()
         {
             AuthenticationScheme = VKDefaults.AuthenticationScheme;
-            Caption = AuthenticationScheme;
+            DisplayName = AuthenticationScheme;
             CallbackPath = new PathString("/signin-VK");
             AuthorizationEndpoint = VKDefaults.AuthorizationEndpoint;
             TokenEndpoint = VKDefaults.TokenEndpoint;

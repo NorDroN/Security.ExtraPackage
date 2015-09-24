@@ -37,7 +37,7 @@ namespace Microsoft.AspNet.Authentication.VK
             var payload = GetUserFromXml(xml);
             payload.Add("email", email);
 
-            var notification = new OAuthAuthenticatedContext(Context, Options, Backchannel, tokens, payload)
+            var notification = new OAuthCreatingTicketContext(Context, Options, Backchannel, tokens, payload)
             {
                 Properties = properties,
                 Principal = new ClaimsPrincipal(identity)
@@ -74,7 +74,7 @@ namespace Microsoft.AspNet.Authentication.VK
                 identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, userName, ClaimValueTypes.String, Options.ClaimsIssuer));
             }
 
-            await Options.Events.Authenticated(notification);
+            await Options.Events.CreatingTicket(notification);
 
             return new AuthenticationTicket(notification.Principal, notification.Properties, notification.Options.AuthenticationScheme);
         }

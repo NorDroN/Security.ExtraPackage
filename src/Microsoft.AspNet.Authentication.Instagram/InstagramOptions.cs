@@ -17,7 +17,7 @@ namespace Microsoft.AspNet.Authentication.Instagram
         public InstagramOptions()
         {
             AuthenticationScheme = InstagramDefaults.AuthenticationScheme;
-            Caption = AuthenticationScheme;
+            DisplayName = AuthenticationScheme;
             CallbackPath = new PathString("/signin-Instagram");
             AuthorizationEndpoint = InstagramDefaults.AuthorizationEndpoint;
             TokenEndpoint = InstagramDefaults.TokenEndpoint;

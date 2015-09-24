@@ -17,7 +17,7 @@ namespace Microsoft.AspNet.Authentication.Foursquare
         public FoursquareOptions()
         {
             AuthenticationScheme = FoursquareDefaults.AuthenticationScheme;
-            Caption = AuthenticationScheme;
+            DisplayName = AuthenticationScheme;
             CallbackPath = new PathString("/signin-Foursquare");
             AuthorizationEndpoint = FoursquareDefaults.AuthorizationEndpoint;
             TokenEndpoint = FoursquareDefaults.TokenEndpoint;

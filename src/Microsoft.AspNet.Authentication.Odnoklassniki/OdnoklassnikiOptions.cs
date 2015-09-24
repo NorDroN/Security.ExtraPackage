@@ -17,7 +17,7 @@ namespace Microsoft.AspNet.Authentication.Odnoklassniki
         public OdnoklassnikiOptions()
         {
             AuthenticationScheme = OdnoklassnikiDefaults.AuthenticationScheme;
-            Caption = AuthenticationScheme;
+            DisplayName = AuthenticationScheme;
             CallbackPath = new PathString("/signin-Odnoklassniki");
             AuthorizationEndpoint = OdnoklassnikiDefaults.AuthorizationEndpoint;
             TokenEndpoint = OdnoklassnikiDefaults.TokenEndpoint;

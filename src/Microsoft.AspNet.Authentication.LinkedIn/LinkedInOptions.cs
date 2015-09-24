@@ -17,7 +17,7 @@ namespace Microsoft.AspNet.Authentication.LinkedIn
         public LinkedInOptions()
         {
             AuthenticationScheme = LinkedInDefaults.AuthenticationScheme;
-            Caption = AuthenticationScheme;
+            DisplayName = AuthenticationScheme;
             CallbackPath = new PathString("/signin-LinkedIn");
             AuthorizationEndpoint = LinkedInDefaults.AuthorizationEndpoint;
             TokenEndpoint = LinkedInDefaults.TokenEndpoint;

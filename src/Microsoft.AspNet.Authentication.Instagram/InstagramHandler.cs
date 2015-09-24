@@ -21,7 +21,7 @@ namespace Microsoft.AspNet.Authentication.Instagram
         {
             var payload = tokens.Response["user"] as JObject;
 
-            var notification = new OAuthAuthenticatedContext(Context, Options, Backchannel, tokens, payload)
+            var notification = new OAuthCreatingTicketContext(Context, Options, Backchannel, tokens, payload)
             {
                 Properties = properties,
                 Principal = new ClaimsPrincipal(identity)
@@ -45,7 +45,7 @@ namespace Microsoft.AspNet.Authentication.Instagram
                 identity.AddClaim(new Claim("urn:instagram:fullname", fullName, ClaimValueTypes.String, Options.ClaimsIssuer));
             }
 
-            await Options.Events.Authenticated(notification);
+            await Options.Events.CreatingTicket(notification);
 
             return new AuthenticationTicket(notification.Principal, notification.Properties, notification.Options.AuthenticationScheme);
         }
