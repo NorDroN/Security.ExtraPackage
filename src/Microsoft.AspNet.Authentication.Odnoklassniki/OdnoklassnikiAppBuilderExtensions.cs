@@ -3,8 +3,6 @@
 
 using System;
 using Microsoft.AspNet.Authentication.Odnoklassniki;
-using Microsoft.Framework.Internal;
-using Microsoft.Extensions.OptionsModel;
 
 namespace Microsoft.AspNet.Builder
 {
@@ -18,8 +16,14 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseOdnoklassnikiAuthentication([NotNull] this IApplicationBuilder app, [NotNull] OdnoklassnikiOptions options)
+        public static IApplicationBuilder UseOdnoklassnikiAuthentication(this IApplicationBuilder app, OdnoklassnikiOptions options)
         {
+            if (app == null)
+                throw new ArgumentNullException(nameof(app));
+
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
             return app.UseMiddleware<OdnoklassnikiMiddleware>(options);
         }
 
@@ -28,8 +32,11 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseOdnoklassnikiAuthentication([NotNull] this IApplicationBuilder app, Action<OdnoklassnikiOptions> configureOptions)
+        public static IApplicationBuilder UseOdnoklassnikiAuthentication(this IApplicationBuilder app, Action<OdnoklassnikiOptions> configureOptions)
         {
+            if (app == null)
+                throw new ArgumentNullException(nameof(app));
+
             var options = new OdnoklassnikiOptions();
             if (configureOptions != null)
             {

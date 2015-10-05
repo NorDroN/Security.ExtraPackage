@@ -6,7 +6,6 @@ using System.Globalization;
 using Microsoft.AspNet.Authentication.OAuth;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.DataProtection;
-using Microsoft.Framework.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
 using Microsoft.Extensions.WebEncoders;
@@ -29,14 +28,32 @@ namespace Microsoft.AspNet.Authentication.Instagram
         /// <param name="options">Configuration options for the middleware.</param>
         /// <param name="configureOptions"></param>
         public InstagramMiddleware(
-            [NotNull] RequestDelegate next,
-            [NotNull] IDataProtectionProvider dataProtectionProvider,
-            [NotNull] ILoggerFactory loggerFactory,
-            [NotNull] IUrlEncoder encoder,
-            [NotNull] IOptions<SharedAuthenticationOptions> sharedOptions,
-            [NotNull] InstagramOptions options)
+            RequestDelegate next,
+            IDataProtectionProvider dataProtectionProvider,
+            ILoggerFactory loggerFactory,
+            IUrlEncoder encoder,
+            IOptions<SharedAuthenticationOptions> sharedOptions,
+            InstagramOptions options)
             : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options)
         {
+            if (next == null)
+                throw new ArgumentNullException(nameof(next));
+
+            if (dataProtectionProvider == null)
+                throw new ArgumentNullException(nameof(dataProtectionProvider));
+
+            if (loggerFactory == null)
+                throw new ArgumentNullException(nameof(loggerFactory));
+
+            if (encoder == null)
+                throw new ArgumentNullException(nameof(encoder));
+
+            if (sharedOptions == null)
+                throw new ArgumentNullException(nameof(sharedOptions));
+
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
             if (Options.Scope.Count == 0)
             {
                 // Instagram requires a scope string, so if the user didn't set one we go for the least possible.

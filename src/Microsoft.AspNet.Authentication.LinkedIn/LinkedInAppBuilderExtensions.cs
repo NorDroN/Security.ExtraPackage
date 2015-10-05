@@ -3,8 +3,6 @@
 
 using System;
 using Microsoft.AspNet.Authentication.LinkedIn;
-using Microsoft.Framework.Internal;
-using Microsoft.Extensions.OptionsModel;
 
 namespace Microsoft.AspNet.Builder
 {
@@ -18,8 +16,14 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseLinkedInAuthentication([NotNull] this IApplicationBuilder app, [NotNull] LinkedInOptions options)
+        public static IApplicationBuilder UseLinkedInAuthentication(this IApplicationBuilder app, LinkedInOptions options)
         {
+            if (app == null)
+                throw new ArgumentNullException(nameof(app));
+
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
             return app.UseMiddleware<LinkedInMiddleware>(options);
         }
 
@@ -28,8 +32,11 @@ namespace Microsoft.AspNet.Builder
         /// </summary>
         /// <param name="app">The <see cref="IApplicationBuilder"/> passed to the configure method.</param>
         /// <returns>The updated <see cref="IApplicationBuilder"/>.</returns>
-        public static IApplicationBuilder UseLinkedInAuthentication([NotNull] this IApplicationBuilder app, Action<LinkedInOptions> configureOptions)
+        public static IApplicationBuilder UseLinkedInAuthentication(this IApplicationBuilder app, Action<LinkedInOptions> configureOptions)
         {
+            if (app == null)
+                throw new ArgumentNullException(nameof(app));
+
             var options = new LinkedInOptions();
             if (configureOptions != null)
             {
