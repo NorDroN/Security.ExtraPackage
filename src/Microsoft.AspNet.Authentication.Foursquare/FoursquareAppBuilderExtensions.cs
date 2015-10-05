@@ -4,7 +4,7 @@
 using System;
 using Microsoft.AspNet.Authentication.Foursquare;
 using Microsoft.Framework.Internal;
-using Microsoft.Framework.OptionsModel;
+using Microsoft.Extensions.OptionsModel;
 
 namespace Microsoft.AspNet.Builder
 {
