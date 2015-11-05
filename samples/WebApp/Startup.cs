@@ -27,7 +27,8 @@ namespace WebApp
 
             app.UseCookieAuthentication(options =>
             {
-                options.AutomaticAuthentication = true;
+                options.AutomaticAuthenticate = true;
+                options.AutomaticChallenge = true;
                 options.LoginPath = new PathString("/login");
             });
 

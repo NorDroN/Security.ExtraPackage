@@ -3,12 +3,12 @@
 
 using System;
 using System.Globalization;
+using System.Text.Encodings.Web;
 using Microsoft.AspNet.Authentication.OAuth;
-using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.DataProtection;
+using Microsoft.AspNet.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.OptionsModel;
-using Microsoft.Extensions.WebEncoders;
 
 namespace Microsoft.AspNet.Authentication.Foursquare
 {
@@ -31,7 +31,7 @@ namespace Microsoft.AspNet.Authentication.Foursquare
             RequestDelegate next,
             IDataProtectionProvider dataProtectionProvider,
             ILoggerFactory loggerFactory,
-            IUrlEncoder encoder,
+            UrlEncoder encoder,
             IOptions<SharedAuthenticationOptions> sharedOptions,
             FoursquareOptions options)
             : base(next, dataProtectionProvider, loggerFactory, encoder, sharedOptions, options)
