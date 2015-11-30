@@ -19,5 +19,7 @@ mono:
 os:
   - linux
   - osx
+before_script:
+  - chmod +x build.sh
 script:
   - ./build.sh --quiet verify
