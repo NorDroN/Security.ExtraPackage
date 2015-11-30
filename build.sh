@@ -25,7 +25,7 @@ if test ! -e .nuget; then
 fi
 
 if test ! -d packages/Sake; then
-    mono .nuget/nuget.exe install KoreBuild -ExcludeVersion -o packages -nocache -pre
+    mono .nuget/nuget.exe install KoreBuild -ExcludeVersion -Source https://www.myget.org/F/aspnetvnext/api/v2 -o packages -nocache -pre
     mono .nuget/nuget.exe install Sake -ExcludeVersion -Source https://www.nuget.org/api/v2/ -Out packages
 fi
 
