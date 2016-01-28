@@ -1,21 +1,21 @@
 ﻿{
   "dependencies": {
-    "Microsoft.AspNet.Authentication.Cookies": "1.0.0-*",
-    "Microsoft.AspNet.Authentication.VK": "1.0.0-*",
-    "Microsoft.AspNet.Authentication.Odnoklassniki": "1.0.0-*",
-    "Microsoft.AspNet.Authentication.LinkedIn": "1.0.0-*",
-    "Microsoft.AspNet.Authentication.Instagram": "1.0.0-*",
-    "Microsoft.AspNet.Authentication.Foursquare": "1.0.0-*",
-    "Microsoft.AspNet.Server.Kestrel": "1.0.0-*",
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-*",
+    "Microsoft.AspNetCore.Authentication.VK": "1.0.0-*",
+    "Microsoft.AspNetCore.Authentication.Odnoklassniki": "1.0.0-*",
+    "Microsoft.AspNetCore.Authentication.LinkedIn": "1.0.0-*",
+    "Microsoft.AspNetCore.Authentication.Instagram": "1.0.0-*",
+    "Microsoft.AspNetCore.Authentication.Foursquare": "1.0.0-*",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
     "Microsoft.Extensions.Logging.Console": "1.0.0-*"
   },
 
   "commands": {
-    "web": "Microsoft.AspNet.Server.Kestrel"
+    "web": "WebApp"
   },
 
   "frameworks": {
-    "net451": {},
-    "dotnet5.4": { }
+    "dnx451": { },
+    "dnxcore50": { }
   }
 }

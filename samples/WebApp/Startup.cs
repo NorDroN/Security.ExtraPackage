@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Http;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNet.Http.Authentication;
-using Microsoft.AspNet.Authentication.Cookies;
-using Microsoft.AspNet.Authentication;
+using Microsoft.AspNetCore.Http.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 
 namespace WebApp
@@ -25,42 +25,42 @@ namespace WebApp
         {
             loggerfactory.AddConsole(LogLevel.Information);
 
-            app.UseCookieAuthentication(options =>
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                options.AutomaticAuthenticate = true;
-                options.AutomaticChallenge = true;
-                options.LoginPath = new PathString("/login");
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                LoginPath = new PathString("/login")
             });
 
-            app.UseVKAuthentication(options =>
+            app.UseVKAuthentication(new VKOptions
             {
-                options.ClientId = "3876732";
-                options.ClientSecret = "A2FEsmg4okMPNLY32H7S";
+                ClientId = "3876732",
+                ClientSecret = "A2FEsmg4okMPNLY32H7S"
             });
 
-            app.UseOdnoklassnikiAuthentication(options =>
+            app.UseOdnoklassnikiAuthentication(new OdnoklassnikiOptions
             {
-                options.ClientId = "194282240";
-                options.ClientSecret = "92DB0969DE3D4BD6CA53550E";
-                options.ClientPublicKey = "CBAEIFJMABABABABA";
+                ClientId = "194282240",
+                ClientSecret = "92DB0969DE3D4BD6CA53550E",
+                ClientPublicKey = "CBAEIFJMABABABABA"
             });
 
-            app.UseLinkedInAuthentication(options =>
+            app.UseLinkedInAuthentication(new LinkedInOptions
             {
-                options.ClientId = "77pacfa9kbmrgy";
-                options.ClientSecret = "068CQsV4iubzwpQ2";
+                ClientId = "77pacfa9kbmrgy",
+                ClientSecret = "068CQsV4iubzwpQ2"
             });
 
-            app.UseInstagramAuthentication(options =>
+            app.UseInstagramAuthentication(new InstagramOptions
             {
-                options.ClientId = "aeb810cc6b8d41a98a6ffb5c5d533782";
-                options.ClientSecret = "b760abd2ce3844d4b93bb5dcf9dc5f66";
+                ClientId = "aeb810cc6b8d41a98a6ffb5c5d533782",
+                ClientSecret = "b760abd2ce3844d4b93bb5dcf9dc5f66"
             });
 
-            app.UseFoursquareAuthentication(options =>
+            app.UseFoursquareAuthentication(new FoursquareOptions
             {
-                options.ClientId = "AZGRK3HBBHKLJLLVKG40ZDAGDQGW44DYHSOEJVSJVT0PGYWU";
-                options.ClientSecret = "LHZ5VFQG4L5CB0WT4RONQEFMMZRWRODZQ1HKDQE5CGMS5WXU";
+                ClientId = "AZGRK3HBBHKLJLLVKG40ZDAGDQGW44DYHSOEJVSJVT0PGYWU",
+                ClientSecret = "LHZ5VFQG4L5CB0WT4RONQEFMMZRWRODZQ1HKDQE5CGMS5WXU"
             });
 
             // Choose an authentication type
