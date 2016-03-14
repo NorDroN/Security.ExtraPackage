@@ -23,7 +23,6 @@ namespace Microsoft.AspNetCore.Builder
             AuthorizationEndpoint = VKDefaults.AuthorizationEndpoint;
             TokenEndpoint = VKDefaults.TokenEndpoint;
             UserInformationEndpoint = VKDefaults.UserInformationEndpoint;
-            SaveTokensAsClaims = false;
         }
     }
 }

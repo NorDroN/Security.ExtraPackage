@@ -23,7 +23,6 @@ namespace Microsoft.AspNetCore.Builder
             AuthorizationEndpoint = LinkedInDefaults.AuthorizationEndpoint;
             TokenEndpoint = LinkedInDefaults.TokenEndpoint;
             UserInformationEndpoint = LinkedInDefaults.UserInformationEndpoint;
-            SaveTokensAsClaims = false;
         }
     }
 }

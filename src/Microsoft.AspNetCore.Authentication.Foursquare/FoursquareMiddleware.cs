@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 namespace Microsoft.AspNetCore.Authentication.Foursquare
 {
     /// <summary>
-    /// An ASP.NET middleware for authenticating users using Foursquare.
+    /// An ASP.NET Core middleware for authenticating users using Foursquare.
     /// </summary>
     public class FoursquareMiddleware : OAuthMiddleware<FoursquareOptions>
     {
@@ -27,7 +27,6 @@ namespace Microsoft.AspNetCore.Authentication.Foursquare
         /// <param name="encoder"></param>
         /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
-        /// <param name="configureOptions"></param>
         public FoursquareMiddleware(
             RequestDelegate next,
             IDataProtectionProvider dataProtectionProvider,
@@ -64,9 +63,9 @@ namespace Microsoft.AspNetCore.Authentication.Foursquare
         }
 
         /// <summary>
-        /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests.
+        /// Provides the <see cref="AuthenticationHandler{T}"/> object for processing authentication-related requests.
         /// </summary>
-        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="FoursquareOptions"/> supplied to the constructor.</returns>
+        /// <returns>An <see cref="AuthenticationHandler{T}"/> configured with the <see cref="FoursquareOptions"/> supplied to the constructor.</returns>
         protected override AuthenticationHandler<FoursquareOptions> CreateHandler()
         {
             return new FoursquareHandler(Backchannel);

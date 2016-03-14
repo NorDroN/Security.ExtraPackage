@@ -23,7 +23,6 @@ namespace Microsoft.AspNetCore.Builder
             AuthorizationEndpoint = InstagramDefaults.AuthorizationEndpoint;
             TokenEndpoint = InstagramDefaults.TokenEndpoint;
             UserInformationEndpoint = InstagramDefaults.UserInformationEndpoint;
-            SaveTokensAsClaims = false;
         }
     }
 }

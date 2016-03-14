@@ -23,7 +23,6 @@ namespace Microsoft.AspNetCore.Builder
             AuthorizationEndpoint = FoursquareDefaults.AuthorizationEndpoint;
             TokenEndpoint = FoursquareDefaults.TokenEndpoint;
             UserInformationEndpoint = FoursquareDefaults.UserInformationEndpoint;
-            SaveTokensAsClaims = false;
         }
     }
 }

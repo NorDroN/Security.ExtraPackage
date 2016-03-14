@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 namespace Microsoft.AspNetCore.Authentication.Odnoklassniki
 {
     /// <summary>
-    /// An ASP.NET middleware for authenticating users using Odnoklassniki.
+    /// An ASP.NET Core middleware for authenticating users using Odnoklassniki.
     /// </summary>
     public class OdnoklassnikiMiddleware : OAuthMiddleware<OdnoklassnikiOptions>
     {
@@ -27,7 +27,6 @@ namespace Microsoft.AspNetCore.Authentication.Odnoklassniki
         /// <param name="encoder"></param>
         /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
-        /// <param name="configureOptions"></param>
         public OdnoklassnikiMiddleware(
             RequestDelegate next,
             IDataProtectionProvider dataProtectionProvider,
@@ -62,9 +61,9 @@ namespace Microsoft.AspNetCore.Authentication.Odnoklassniki
         }
 
         /// <summary>
-        /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests.
+        /// Provides the <see cref="AuthenticationHandler{T}"/> object for processing authentication-related requests.
         /// </summary>
-        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="OdnoklassnikiOptions"/> supplied to the constructor.</returns>
+        /// <returns>An <see cref="AuthenticationHandler{T}"/> configured with the <see cref="OdnoklassnikiOptions"/> supplied to the constructor.</returns>
         protected override AuthenticationHandler<OdnoklassnikiOptions> CreateHandler()
         {
             return new OdnoklassnikiHandler(Backchannel);

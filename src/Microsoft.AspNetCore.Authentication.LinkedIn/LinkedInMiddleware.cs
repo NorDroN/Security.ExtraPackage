@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 namespace Microsoft.AspNetCore.Authentication.LinkedIn
 {
     /// <summary>
-    /// An ASP.NET middleware for authenticating users using LinkedIn.
+    /// An ASP.NET Core middleware for authenticating users using LinkedIn.
     /// </summary>
     public class LinkedInMiddleware : OAuthMiddleware<LinkedInOptions>
     {
@@ -27,7 +27,6 @@ namespace Microsoft.AspNetCore.Authentication.LinkedIn
         /// <param name="encoder"></param>
         /// <param name="sharedOptions"></param>
         /// <param name="options">Configuration options for the middleware.</param>
-        /// <param name="configureOptions"></param>
         public LinkedInMiddleware(
             RequestDelegate next,
             IDataProtectionProvider dataProtectionProvider,
@@ -57,9 +56,9 @@ namespace Microsoft.AspNetCore.Authentication.LinkedIn
         }
 
         /// <summary>
-        /// Provides the <see cref="AuthenticationHandler"/> object for processing authentication-related requests.
+        /// Provides the <see cref="AuthenticationHandler{T}"/> object for processing authentication-related requests.
         /// </summary>
-        /// <returns>An <see cref="AuthenticationHandler"/> configured with the <see cref="LinkedInOptions"/> supplied to the constructor.</returns>
+        /// <returns>An <see cref="AuthenticationHandler{T}"/> configured with the <see cref="LinkedInOptions"/> supplied to the constructor.</returns>
         protected override AuthenticationHandler<LinkedInOptions> CreateHandler()
         {
             return new LinkedInHandler(Backchannel);

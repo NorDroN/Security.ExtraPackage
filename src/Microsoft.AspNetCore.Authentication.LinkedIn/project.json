@@ -1,19 +1,30 @@
 {
   "version": "1.0.0-*",
-  "description": "ASP.NET 5 middleware that enables an application to support LinkedIn's OAuth 2.0 authentication workflow.",
+  "description": "ASP.NET Core middleware that enables an application to support LinkedIn's OAuth 2.0 authentication workflow.",
+  "tags": [
+    "aspnetcore",
+    "authentication",
+    "security"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/NorDroN/Security.ExtraPackage"
   },
   "compilationOptions": {
-    "warningsAsErrors": true
+    "warningsAsErrors": true,
+    "nowarn": [ "CS1591" ],
+    "xmlDoc": true
   },
   "dependencies": {
-    "Microsoft.AspNetCore.Authentication.OAuth": "1.0.0-*",
-    "Newtonsoft.Json": "8.0.2"
+    "Microsoft.AspNetCore.Authentication.OAuth": "1.0.0-*"
   },
   "frameworks": {
-    "net451": {},
-    "dotnet5.4": { }
+    "net451": { },
+    "netstandard1.3": {
+      "imports": [
+        "dotnet5.4",
+        "portable-net451+win8"
+      ]
+    }
   }
 }

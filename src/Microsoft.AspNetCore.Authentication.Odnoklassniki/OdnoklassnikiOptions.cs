@@ -23,7 +23,6 @@ namespace Microsoft.AspNetCore.Builder
             AuthorizationEndpoint = OdnoklassnikiDefaults.AuthorizationEndpoint;
             TokenEndpoint = OdnoklassnikiDefaults.TokenEndpoint;
             UserInformationEndpoint = OdnoklassnikiDefaults.UserInformationEndpoint;
-            SaveTokensAsClaims = false;
         }
 
         //

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
 
 namespace WebApp
 {
@@ -127,6 +128,18 @@ namespace WebApp
                 await context.Response.WriteAsync("<a href=\"/logout\">Logout</a>");
                 await context.Response.WriteAsync("</body></html>");
             });
+        }
+
+        public static void Main(string[] args)
+        {
+            var host = new WebHostBuilder()
+                .UseDefaultConfiguration(args)
+                .UseServer("Microsoft.AspNetCore.Server.Kestrel")
+                .UseIISPlatformHandlerUrl()
+                .UseStartup<Startup>()
+                .Build();
+
+            host.Run();
         }
     }
 }
