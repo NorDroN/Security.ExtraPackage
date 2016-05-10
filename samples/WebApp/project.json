@@ -6,7 +6,7 @@
     "Microsoft.AspNetCore.Authentication.LinkedIn": "1.0.0-*",
     "Microsoft.AspNetCore.Authentication.Instagram": "1.0.0-*",
     "Microsoft.AspNetCore.Authentication.Foursquare": "1.0.0-*",
-    "Microsoft.AspNetCore.IISPlatformHandler": "1.0.0-*",
+    "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0-*",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-*",
     "Microsoft.Extensions.Logging.Console": "1.0.0-*"
   },
