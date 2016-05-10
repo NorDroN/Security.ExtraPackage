@@ -1,5 +1,13 @@
 ﻿{
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
   "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0-*",
+      "type": "platform"
+    },
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-*",
     "Microsoft.AspNetCore.Authentication.VK": "1.0.0-*",
     "Microsoft.AspNetCore.Authentication.Odnoklassniki": "1.0.0-*",
@@ -11,16 +19,19 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-*"
   },
 
-  "commands": {
-    "web": "WebApp"
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "portable-net45+wp80+win8+wpa81+dnxcore50",
+        "portable-net451+win8"
+      ]
+    }
   },
 
-  "frameworks": {
-    "dnx451": { },
-    "netstandardapp1.5": {
-      "imports": [
-        "dnxcore50"
-      ]
+  "tools": {
+    "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
+      "version": "1.0.0-*",
+      "imports": "portable-net45+wp80+win8+wpa81+dnxcore50"
     }
   }
 }
