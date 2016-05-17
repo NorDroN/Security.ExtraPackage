@@ -55,9 +55,7 @@ namespace Microsoft.AspNetCore.Authentication.Odnoklassniki
                 throw new ArgumentNullException(nameof(options));
 
             if (string.IsNullOrWhiteSpace(Options.ClientPublicKey))
-            {
-                throw new ArgumentException(string.Format(CultureInfo.CurrentCulture, Resources.Exception_OptionMustBeProvided, nameof(Options.ClientPublicKey)));
-            }
+                throw new ArgumentNullException(nameof(Options.ClientPublicKey));
         }
 
         /// <summary>
